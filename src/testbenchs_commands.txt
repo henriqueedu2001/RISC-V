@@ -1,0 +1,2 @@
+cd /bin
+iverilog -o full_adder ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/testbenchs/tests/utility/full_adder_test.v 
