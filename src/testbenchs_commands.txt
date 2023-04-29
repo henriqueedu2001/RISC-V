@@ -7,3 +7,7 @@ vvp full_adder
 -> MUX 2x1
 iverilog -o mux_2x1 ../src/modules/utility/mux_2x1.v ../src/testbenchs/tests/utility/mux_2x1.v
 vvp mux_2x1
+
+-> MUX 4x1
+iverilog -o mux_4x1 ../src/modules/utility/mux_4x1.v ../src/testbenchs/tests/utility/mux_4x1.v 
+vvp mux_4x1
