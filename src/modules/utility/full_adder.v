@@ -11,7 +11,6 @@ module full_adder #(
     wire [N-1:0] carry_in;
     wire [N-1:0] carry_out;
 
-    
     genvar i;
     generate
         /* instanciação de 64 somadores de 1 bit */
