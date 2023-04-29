@@ -12,5 +12,8 @@ vvp mux_2x1
 iverilog -o mux_4x1 ../src/modules/utility/mux_4x1.v ../src/testbenchs/tests/utility/mux_4x1.v 
 vvp mux_4x1
 
--> SINGLE REGISTER
-iverilog -o single_register ../src/modules/utility/single_register.v ../src/testbenchs/tests/utility/single_register.v 
+-> ONE BIT REGISTER
+iverilog -o one_bit_register ../src/modules/utility/one_bit_register.v ../src/testbenchs/tests/utility/one_bit_register_test.v 
+
+-> N BITS REGISTER
+iverilog -o n_bits_register ../src/modules/utility/n_bits_register.v ../src/modules/utility/one_bit_register.v ../src/testbenchs/tests/utility/n_bits_register_test.v 

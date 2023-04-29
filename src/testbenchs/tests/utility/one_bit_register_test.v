@@ -1,7 +1,7 @@
 `timescale 1ps/1ps
 
 /* teste do módulo [...] */
-module single_register_test #(parameter N = 64) ();
+module one_bit_register_test #(parameter N = 64) ();
     reg clk;       /* sinal de clock */
     reg load;      /* sinal de load */
     reg reset;     /* sinal de reset */
@@ -9,7 +9,7 @@ module single_register_test #(parameter N = 64) ();
     wire data_out;  /* dado de leitura */
     
     /* instanciação da unit under test */
-    single_register uut(
+    one_bit_register uut(
         .clk(clk),
         .load(load),
         .reset(reset),

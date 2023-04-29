@@ -1,5 +1,5 @@
 # Processador RISC-V
-Esta é uma implementação de um processador, baseado no conjunto de instruções do RISC-V (RV32I: ISA RISC-V), com uma arquitetura de 64 bits.
+Esta é uma implementação de um processador, baseado no conjunto de instruções do RISC-V (RV64I: ISA RISC-V), com uma arquitetura de 64 bits.
 
 **Autor**<br>
 Henrique Eduardo @henriqueedu2001

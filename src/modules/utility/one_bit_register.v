@@ -1,5 +1,5 @@
 /* registrador unitário */
-module single_register #(parameter N = 64) (
+module one_bit_register #(parameter N = 64) (
     input wire clk,        /* sinal de clock */
     input wire load,       /* sinal de load */
     input wire reset,      /* sinal de reset */
