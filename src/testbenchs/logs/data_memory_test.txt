@@ -1,0 +1,31 @@
+clk = 0; write_en = 1; addr = 0000000000000003
+input = 0000000000000036
+output = xxxxxxxxxxxxxxxx
+
+clk = 1; write_en = 1; addr = 0000000000000003
+input = 0000000000000036
+output = 0000000000000036
+
+clk = 0; write_en = 1; addr = 0000000000000003
+input = 0000000000000036
+output = 0000000000000036
+
+clk = 0; write_en = 1; addr = 0000000000000003
+input = 000000000000000d
+output = 0000000000000036
+
+clk = 1; write_en = 1; addr = 0000000000000005
+input = 000000000000000d
+output = 000000000000000d
+
+clk = 0; write_en = 0; addr = 0000000000000000
+input = 000000000000000d
+output = xxxxxxxxxxxxxxxx
+
+clk = 0; write_en = 0; addr = 0000000000000003
+input = 000000000000000d
+output = 0000000000000036
+
+clk = 0; write_en = 0; addr = 0000000000000005
+input = 0000000000000036
+output = 000000000000000d
