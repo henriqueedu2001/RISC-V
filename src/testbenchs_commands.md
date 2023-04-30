@@ -18,6 +18,14 @@ E você verá o resultado do testbench.<br>
 
 Como os comandos ficam muito longos para o terminal, escrevi todos aqui neste arquivo. Basta copiar e colar no terminal e teclar enter.
 
+## CPU
+```
+iverilog -o cpu ../src/modules/processor/cpu.v ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v ../src/modules/utility/one_bit_register.v ../src/modules/processor/data_memory.v ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v
+```
+```
+vvp rf
+```
+
 ## REGISTER FILE
 ```
 iverilog -o rf ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v  ../src/modules/utility/one_bit_register.v 
