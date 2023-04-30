@@ -18,6 +18,14 @@ E você verá o resultado do testbench.<br>
 
 Como os comandos ficam muito longos para o terminal, escrevi todos aqui neste arquivo. Basta copiar e colar no terminal e teclar enter.
 
+## ALU
+```
+iverilog -o alu ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/testbenchs/tests/processor/alu_test.v
+```
+```
+vvp alu
+```
+
 ## FULL ADDER
 ```
 iverilog -o full_adder ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/testbenchs/tests/utility/full_adder_test.v 
@@ -32,6 +40,14 @@ iverilog -o half_adder ../src/modules/utility/half_adder.v ../src/testbenchs/tes
 ```
 ```
 vvp half_adder
+```
+
+## OPPOSITE
+```
+iverilog -o opposite ../src/modules/utility/opposite.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/testbenchs/tests/utility/opposite_test.v
+```
+```
+vvp opposite
 ```
 
 ## MUX 2x1

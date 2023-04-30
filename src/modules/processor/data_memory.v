@@ -1,6 +1,6 @@
 /* data memory */
 module data_memory #(
-    parameter WORDSIZE = 64;            /* define o tamanho da palavra */
+    parameter WORDSIZE = 64            /* define o tamanho da palavra */
 ) (
     input clk,                          /* sinal de clock */
     input [WORDSIZE-1:0] addr,          /* endereço para leitura ou escrita */

@@ -1,6 +1,6 @@
 /* register file */
 module register_file #(
-    parameter WORDSIZE = 64;            /* define o tamanho da palavra */
+    parameter WORDSIZE = 64            /* define o tamanho da palavra */
 ) (
     input clk,                          /* sinal de clock */
     input write_en,                     /* habilita escrita */
