@@ -44,7 +44,7 @@ vvp dm
 
 ## ALU
 ```
-iverilog -o alu ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/testbenchs/tests/processor/alu_test.v
+iverilog -o alu ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/modules/utility/opposite.v ../src/testbenchs/tests/processor/alu_test.v
 ```
 ```
 vvp alu

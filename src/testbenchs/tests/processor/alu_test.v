@@ -21,7 +21,7 @@ module alu_test #(
 
     /* início do testbench */
     initial begin
-        input_a = 64'h0000_0000_0000_0001;
+        input_a = 64'h0000_0000_0000_0005;
         input_b = 64'h0000_0000_0000_0002;
         operation = 3'b000;
         $monitor("input_a = %H\ninput_b = %H\noperation = %B\nresult = %H\noverflow = %B\n", 
@@ -33,5 +33,16 @@ module alu_test #(
         );
         #100;
 
+        input_a = 64'h0000_0000_0000_0005;
+        input_b = 64'h0000_0000_0000_0002;
+        operation = 3'b001;
+        $monitor("input_a = %H\ninput_b = %H\noperation = %B\nresult = %H\noverflow = %B\n", 
+            input_a,
+            input_b,
+            operation,
+            result,
+            overflow
+        );
+        #100;
     end
 endmodule
