@@ -27,12 +27,106 @@ module register_file_test #(
 
     /* início do testbench */
     initial begin
+        clk = 0; write_en = 1;
+        write_addr = 4;
+        write_data = 5;
+        addr_a = 4;
+        addr_b = 7;
+        $monitor("clk = %B; addr_a = x%1D; addr_b = x%1D; write_en = %B; write_addr = x%1D\nwrite_data = %H\ndata_a = %H\ndata_b = %H\n", 
+            clk,
+            addr_a,
+            addr_b,
+            write_en,
+            write_addr,
+            write_data,
+            data_a, 
+            data_b
+        );
+        #100;
+
+        clk = 1; write_en = 1;
+        write_addr = 4;
+        write_data = 5;
+        addr_a = 4;
+        addr_b = 7;
+        $monitor("clk = %B; addr_a = x%1D; addr_b = x%1D; write_en = %B; write_addr = x%1D\nwrite_data = %H\ndata_a = %H\ndata_b = %H\n", 
+            clk,
+            addr_a,
+            addr_b,
+            write_en,
+            write_addr,
+            write_data,
+            data_a, 
+            data_b
+        );
+        #100;
+
+        clk = 0; write_en = 1;
+        write_addr = 7;
+        write_data = 11;
+        addr_a = 4;
+        addr_b = 7;
+        $monitor("clk = %B; addr_a = x%1D; addr_b = x%1D; write_en = %B; write_addr = x%1D\nwrite_data = %H\ndata_a = %H\ndata_b = %H\n", 
+            clk,
+            addr_a,
+            addr_b,
+            write_en,
+            write_addr,
+            write_data,
+            data_a, 
+            data_b
+        );
+        #100;
+
+        clk = 1; write_en = 1;
+        write_addr = 7;
+        write_data = 11;
+        addr_a = 4;
+        addr_b = 7;
+        $monitor("clk = %B; addr_a = x%1D; addr_b = x%1D; write_en = %B; write_addr = x%1D\nwrite_data = %H\ndata_a = %H\ndata_b = %H\n", 
+            clk,
+            addr_a,
+            addr_b,
+            write_en,
+            write_addr,
+            write_data,
+            data_a, 
+            data_b
+        );
+        #100;
+
         clk = 0; write_en = 0;
-        write_addr = 0;
-        write_data = 0;
+        write_addr = 7;
+        write_data = 11;
+        addr_a = 4;
+        addr_b = 7;
+        $monitor("clk = %B; addr_a = x%1D; addr_b = x%1D; write_en = %B; write_addr = x%1D\nwrite_data = %H\ndata_a = %H\ndata_b = %H\n", 
+            clk,
+            addr_a,
+            addr_b,
+            write_en,
+            write_addr,
+            write_data,
+            data_a, 
+            data_b
+        );
+        #100;
+
+        clk = 1; write_en = 0;
+        write_addr = 7;
+        write_data = 11;
         addr_a = 0;
-        addr_b = 0;
-        $monitor("%H\n%H\n", data_a, data_b);
+        addr_b = 2;
+        $monitor("clk = %B; addr_a = x%1D; addr_b = x%1D; write_en = %B; write_addr = x%1D\nwrite_data = %H\ndata_a = %H\ndata_b = %H\n", 
+            clk,
+            addr_a,
+            addr_b,
+            write_en,
+            write_addr,
+            write_data,
+            data_a, 
+            data_b
+        );
         #100;
     end
 endmodule

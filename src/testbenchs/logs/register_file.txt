@@ -1,0 +1,29 @@
+clk = 0; addr_a = x4; addr_b = x7; write_en = 1; write_addr = x4
+write_data = 0000000000000005
+data_a = 0000000000000000
+data_b = 0000000000000000
+
+clk = 1; addr_a = x4; addr_b = x7; write_en = 1; write_addr = x4
+write_data = 0000000000000005
+data_a = 0000000000000005
+data_b = 0000000000000000
+
+clk = 0; addr_a = x4; addr_b = x7; write_en = 1; write_addr = x7
+write_data = 000000000000000b
+data_a = 0000000000000005
+data_b = 0000000000000000
+
+clk = 1; addr_a = x4; addr_b = x7; write_en = 1; write_addr = x7
+write_data = 000000000000000b
+data_a = 0000000000000005
+data_b = 000000000000000b
+
+clk = 0; addr_a = x4; addr_b = x7; write_en = 0; write_addr = x7
+write_data = 000000000000000b
+data_a = 0000000000000005
+data_b = 000000000000000b
+
+clk = 1; addr_a = x0; addr_b = x2; write_en = 0; write_addr = x7
+write_data = 000000000000000b
+data_a = 0000000000000000
+data_b = 0000000000000000

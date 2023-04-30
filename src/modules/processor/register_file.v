@@ -19,7 +19,7 @@ module register_file #(
     /* saídas de 64 bits de cada registrador */           
     wire [SIZE-1:0] [WORDSIZE-1:0] registers_data_out;
 
-    /* gera um banco de 32 registradores de 64 bits*/
+    /* gera um banco de 32 registradores de 64 bits */
     generate
         for (genvar i = 0; i < SIZE; i = i + 1) begin: REG_INST
             n_bits_register n_bits_reg (
@@ -32,9 +32,29 @@ module register_file #(
         end
     endgenerate
 
-    assign registers_load[0] = write_en;
-    assign data_a = registers_data_out[0];
-    assign data_b = registers_data_out[0];
+    /* coloca o sinal de load nos registradores corretos */
+    generate
+        for (genvar i = 0; i < SIZE; i = i + 1) begin
+            assign registers_load[i] = (write_en) & (write_addr == i);
+        end
+    endgenerate
+
+    /* leitura dos registradores A e B */
+    reg [WORDSIZE-1:0] a; /* valor de saída do registrador a */
+    reg [WORDSIZE-1:0] b; /* valor de saída do registrador b */
+
+    /* TODO tornar remover o always e usar apenas assign */
+
+    /* ativação em qualquer instante */
+    always @ (*) begin
+        /* leitura assíncrona com o clock */
+        a <= registers_data_out[addr_a]; 
+        b <= registers_data_out[addr_b];
+    end
+
+    /* valores lidos em A e em B */
+    assign data_a = a;
+    assign data_b = b;
 
 endmodule
 
