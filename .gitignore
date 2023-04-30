@@ -1,8 +1,2 @@
 temporary files
-bin/full_adder
-bin/mux_2x1
-bin/mux_4x1
-bin/n_bits_register
-bin/one_bit_register
-bin/single_register
-bin/half_adder
+bin/*
