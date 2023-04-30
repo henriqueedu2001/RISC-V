@@ -20,10 +20,18 @@ Como os comandos ficam muito longos para o terminal, escrevi todos aqui neste ar
 
 ## REGISTER FILE
 ```
-iverilog -o register_file ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v  ../src/modules/utility/one_bit_register.v 
+iverilog -o rf ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v  ../src/modules/utility/one_bit_register.v 
 ```
 ```
-vvp register_file
+vvp rf
+```
+
+## DATA MEMORY
+```
+iverilog -o dm ../src/modules/processor/data_memory.v ../src/testbenchs/tests/processor/data_memory_test.v
+```
+```
+vvp dm
 ```
 
 ## ALU
