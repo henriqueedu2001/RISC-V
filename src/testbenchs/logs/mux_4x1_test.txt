@@ -1,0 +1,23 @@
+in = 0000; sel = 00; 
+out = 0
+
+in = 0001; sel = 00; 
+out = 1
+
+in = 0000; sel = 01; 
+out = 0
+
+in = 0010; sel = 01; 
+out = 0
+
+in = 0000; sel = 10; 
+out = 0
+
+in = 0100; sel = 10; 
+out = 0
+
+in = 0000; sel = 11; 
+out = 0
+
+in = 1000; sel = 11; 
+out = 1

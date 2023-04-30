@@ -19,27 +19,27 @@ module full_adder_test #(parameter N = 64) ();
     initial begin
         a = 64'h0000_0000_0000_0002;
         b = 64'h0000_0000_0000_0005;
-        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = ", a, b, sum, a, b, sum, overflow);
+        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = %B\n", a, b, sum, a, b, sum, overflow);
         #100;
 
         a = 64'h0000_0000_f43a_a301;
         b = 64'h0000_0000_b9c2_d427;
-        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = ", a, b, sum, a, b, sum, overflow);
+        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = %B\n", a, b, sum, a, b, sum, overflow);
         #100;
 
         a = 64'h0000_0000_0000_0000;
         b = 64'h0000_0000_0000_ffff;
-        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = ", a, b, sum, a, b, sum, overflow);
+        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = %B\n", a, b, sum, a, b, sum, overflow);
         #100;
 
         a = 64'h7fff_ffff_ffff_ffff;
         b = 64'h8fff_ffff_ffff_0000;
-        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = ", a, b, sum, a, b, sum, overflow);
+        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = %B\n", a, b, sum, a, b, sum, overflow);
         #100;
 
         a = 64'hffff_ffff_ffff_ffff;
         b = 64'hffff_ffff_ffff_ffff;
-        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = ", a, b, sum, a, b, sum, overflow);
+        $monitor("%D + %D = %D\na   = %B\nb   = %B\nsum = %B\noverflow = %B\n", a, b, sum, a, b, sum, overflow);
         #100;
     end
 endmodule
