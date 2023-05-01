@@ -20,7 +20,7 @@ Como os comandos ficam muito longos para o terminal, escrevi todos aqui neste ar
 
 ## CPU
 ```
-iverilog -o cpu ../src/modules/processor/cpu.v ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v ../src/modules/utility/one_bit_register.v ../src/modules/processor/data_memory.v ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v
+iverilog -o cpu ../src/modules/processor/cpu.v ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v ../src/modules/utility/one_bit_register.v ../src/modules/processor/data_memory.v ../src/modules/processor/alu.v ../src/modules/utility/opposite.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/testbenchs/tests/processor/cpu_test.v 
 ```
 ```
 vvp rf

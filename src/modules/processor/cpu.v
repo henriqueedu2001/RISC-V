@@ -3,30 +3,29 @@ module cpu #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
     parameter SIZE = 512               /* tamanho da memória */
 ) (
-    input wire  clk  /* inputs */
-);
-
+    input wire clk,  /* inputs */
     /* fios do register file */
-    wire [4:0] rf_addr_a;
-    wire [4:0] rf_addr_b;
-    wire rf_write_en;
-    wire [4:0] rf_write_addr;
-    wire [WORDSIZE-1:0] rf_write_data;
-    wire [WORDSIZE-1:0] rf_data_a;
-    wire [WORDSIZE-1:0] rf_data_b;
+    input wire [4:0] rf_addr_a,
+    input wire [4:0] rf_addr_b,
+    input wire rf_write_en,
+    input wire [4:0] rf_write_addr,
+    input wire [WORDSIZE-1:0] rf_write_data,
+    output wire [WORDSIZE-1:0] rf_data_a,
+    output wire [WORDSIZE-1:0] rf_data_b,
 
     /* fios do data memory */
-    wire [WORDSIZE-1:0] dm_addr;
-    wire [WORDSIZE-1:0] dm_data_input;
-    wire dm_write_en;
-    wire [WORDSIZE-1:0] dm_data_output;
+    input wire [WORDSIZE-1:0] dm_addr,
+    input wire [WORDSIZE-1:0] dm_data_input,
+    input wire dm_write_en,
+    output wire [WORDSIZE-1:0] dm_data_output,
 
     /* fios da alu */
-    wire [WORDSIZE-1:0] alu_input_a;
-    wire [WORDSIZE-1:0] alu_input_b;
-    wire [2:0] alu_operation;
-    wire [WORDSIZE-1:0] alu_result;
-    wire alu_overflow;
+    input wire [WORDSIZE-1:0] alu_input_a,
+    input wire [WORDSIZE-1:0] alu_input_b,
+    input wire [2:0] alu_operation,
+    output wire [WORDSIZE-1:0] alu_result,
+    output wire alu_overflow
+);
 
     register_file rf_inst (
         .clk(clk),
@@ -56,9 +55,9 @@ module cpu #(
     );
 
     /* conexões dos fios do datapath */
-    assign rf_write_data = dm_data_output;
-    assign alu_input_a = rf_data_a;
-    assign alu_input_b = rf_data_b;
-    assign dm_addr = alu_result;
+    // assign rf_write_data = dm_data_output;
+    // assign alu_input_a = rf_data_a;
+    // assign alu_input_b = rf_data_b;
+    // assign dm_addr = alu_result;
 
 endmodule
