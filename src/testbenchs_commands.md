@@ -29,7 +29,7 @@ vvp rf
 
 ## REGISTER FILE
 ```
-iverilog -o rf ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v  ../src/modules/utility/one_bit_register.v 
+iverilog -o rf ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v  ../src/modules/utility/one_bit_register.v ../src/testbenchs/tests/processor/register_file_test.v
 ```
 ```
 vvp rf
