@@ -7,11 +7,12 @@ module cpu #(
     input wire [4:0] cpu_rf_addr_b,
     input wire [4:0] cpu_rf_write_addr,
     input wire cpu_rf_write_en,
-    input wire [11:0] cpu_immediate,
+    input wire [WORDSIZE-1:0] cpu_immediate,
     input wire cpu_mux_0_sel,
     input wire cpu_mux_1_sel,
     input wire cpu_mux_2_sel,
     input wire [2:0] cpu_alu_operation,
+    input wire cpu_dm_write_en,
     input wire cpu_clk
 );
     /* fios do register file */
@@ -35,6 +36,23 @@ module cpu #(
     wire [2:0] alu_operation;
     wire [WORDSIZE-1:0] alu_result;
     wire alu_overflow;
+
+    /* fios dos multiplexadores */
+    wire mux_0_sel;
+    wire [WORDSIZE-1:0] mux_0_input_a;
+    wire [WORDSIZE-1:0] mux_0_input_b;
+    wire [WORDSIZE-1:0] mux_0_out;
+
+    wire mux_1_sel;
+    wire [WORDSIZE-1:0] mux_1_input_a;
+    wire [WORDSIZE-1:0] mux_1_input_b;
+    wire [WORDSIZE-1:0] mux_1_out;
+
+    wire mux_2_sel;
+    wire [WORDSIZE-1:0] mux_2_input_a;
+    wire [WORDSIZE-1:0] mux_2_input_b;
+    wire [WORDSIZE-1:0] mux_2_out;
+
 
     register_file rf_inst (
         .clk(clk),
@@ -63,6 +81,55 @@ module cpu #(
         .overflow(alu_overflow)
     );
 
-    
+    general_mux mux_0(
+        .input_a(mux_0_input_a),
+        .input_b(mux_0_input_b),
+        .sel(mux_0_sel),
+        .out(mux_0_out)
+    );
+
+    general_mux mux_1(
+        .input_a(mux_1_input_a),
+        .input_b(mux_1_input_b),
+        .sel(mux_1_sel),
+        .out(mux_1_out)
+    );
+
+    general_mux mux_2(
+        .input_a(mux_2_input_a),
+        .input_b(mux_2_input_b),
+        .sel(mux_2_sel),
+        .out(mux_2_out)
+    );
+
+    /* entradas no register file */
+    assign rf_addr_a = cpu_rf_addr_a;
+    assign rf_addr_b = cpu_rf_addr_b;
+    assign rf_write_addr = cpu_rf_write_addr;
+    assign rf_write_en = cpu_rf_write_en;
+    assign rf_write_data = mux_2_out;
+
+    /* entradas no data memory */
+    assign dm_addr = alu_result;
+    assign dm_data_input = rf_data_b;
+    assign dm_write_en = cpu_dm_write_en;
+
+    /* entradas na alu */
+    assign alu_input_a = mux_0_out;
+    assign alu_input_b = mux_1_out;
+    assign alu_operation = cpu_alu_operation;
+
+    /* entradas nos multiplexadores */
+    assign mux_0_input_a = rf_data_a;
+    assign mux_0_input_b = rf_data_b;
+    assign mux_0_sel = cpu_mux_0_sel;
+
+    assign mux_1_input_a = cpu_immediate;
+    assign mux_1_input_b = rf_data_b;
+    assign mux_1_sel = cpu_mux_1_sel;
+
+    assign mux_2_input_a = alu_result;
+    assign mux_2_input_b = dm_data_output;
+    assign mux_2_sel = cpu_mux_2_sel;
 
 endmodule
