@@ -100,7 +100,7 @@ module cpu #(
     assign cpu_reading_mux_2_out = mux_2_out;
 
     register_file rf_inst (
-        .clk(clk),
+        .clk(cpu_clk),
         .addr_a(rf_addr_a),
         .addr_b(rf_addr_b),
         .write_en(rf_write_en),
@@ -111,7 +111,7 @@ module cpu #(
     );
 
     data_memory dm_inst (
-        .clk(clk),
+        .clk(cpu_clk),
         .addr(dm_addr),
         .data_input(dm_data_input),
         .write_en(dm_write_en),
