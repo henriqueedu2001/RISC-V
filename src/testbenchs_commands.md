@@ -74,6 +74,14 @@ iverilog -o opposite ../src/modules/utility/opposite.v ../src/modules/utility/fu
 vvp opposite
 ```
 
+## GENERAL MUX
+```
+iverilog -o mux ../src/modules/utility/general_mux.v ../src/testbenchs/tests/utility/general_mux.v
+```
+```
+vvp mux
+```
+
 ## MUX 2x1
 ```
 iverilog -o mux_2x1 ../src/modules/utility/mux_2x1.v ../src/testbenchs/tests/utility/mux_2x1.v

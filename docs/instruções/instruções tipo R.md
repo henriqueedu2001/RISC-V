@@ -16,7 +16,7 @@
 - **sltu**: less than unsigned (<)
 - **xor**: faz o xor bit a bit dos números
 - **srl**: shift right logical (>>)
-- **sra**: shift right arithmetic
+- **sra**: shift right arithmetic (>>)
 - **or**: faz o or bit a bit dos números
 - **and**: faz o and bit a bit dos números
 
