@@ -4,20 +4,16 @@ module cpu #(
     parameter SIZE = 512,              /* tamanho da memória */
     parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
 ) (
-    input wire instruction,
-    input wire cpu_clk
+    input wire cpu_clk,                  /* sinal de clock */
+    output wire [WORDSIZE-1:0] cpu_reading_rf_data_a,   /* leitura do register file data_a */
+    output wire [WORDSIZE-1:0] cpu_reading_rf_data_b,   /* leitura do register file data_b */
+    output wire [WORDSIZE-1:0] cpu_reading_dm_data_out, /* leitura do data_output do data memory */
+    output wire [WORDSIZE-1:0] cpu_reading_mux_0_out,   /* leitura da saída do mux_0 */
+    output wire [WORDSIZE-1:0] cpu_reading_mux_1_out,   /* leitura da saída do mux_1 */
+    output wire [WORDSIZE-1:0] cpu_reading_mux_2_out,   /* leitura da saída do mux_2 */
+    output wire [INSTRUCTION_SIZE-1:0] cpu_reading_im_instr,     /* leitura da instrução do im */
+    output wire [WORDSIZE-1:0] cpu_reading_pc_addr      /* leitura do endereço do pc */
 );
-
-    // wire [4:0] cu_rf_addr_a;
-    // wire [4:0] cu_rf_addr_b;
-    // wire [4:0] cu_rf_write_addr;
-    // wire cu_rf_write_en;
-    // wire [WORDSIZE-1:0] cu_immediate;
-    // wire cu_mux_0_sel;
-    // wire cu_mux_1_sel;
-    // wire cu_mux_2_sel;
-    // wire [2:0] cu_alu_operation;
-    // wire cu_dm_write_en;
     
     /* fios do register file */
     wire [4:0] rf_addr_a;
@@ -92,7 +88,7 @@ module cpu #(
     /* entradas na alu */
     assign alu_input_a = mux_0_out;
     assign alu_input_b = mux_1_out;
-    assign alu_operation = cpu_alu_operation;
+    /* assign alu_operation = cpu_alu_operation; */ // TODO
 
     /* entradas da control unit */
     assign cu_instruction = im_instruction;
@@ -112,6 +108,16 @@ module cpu #(
     assign mux_2_input_a = alu_result;
     assign mux_2_input_b = dm_data_output;
     assign mux_2_sel = cu_mux_2_sel;
+
+    /* sinais de leitura */
+    assign cpu_reading_rf_data_a = rf_data_a;
+    assign cpu_reading_rf_data_b = rf_data_b;
+    assign cpu_reading_dm_data_out = dm_data_output;
+    assign cpu_reading_mux_0_out = mux_0_out;
+    assign cpu_reading_mux_1_out = mux_1_out;
+    assign cpu_reading_mux_2_out = mux_2_out;
+    assign cpu_reading_im_instr = im_instruction;
+    assign cpu_reading_pc_addr = pc_addr;
 
     register_file rf_inst (
         .clk(cpu_clk),
