@@ -1,0 +1,61 @@
+`timescale 1ps/1ps
+
+/* teste do módulo [...] */
+module control_unit_test #(
+    parameter WORDSIZE = 64,           /* define o tamanho da palavra */
+    parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
+) ();
+
+    reg clk;                                /* sinal de clock */
+    reg [INSTRUCTION_SIZE-1:0] instruction; /* instrução do risc-v */
+    wire [4:0] cu_rf_addr_a;                /* seleção de addr_a no register file */
+    wire [4:0] cu_rf_addr_b;                /* seleção de addr_b no register file */
+    wire [4:0] cu_rf_write_addr;            /* seleção de write_addr no register file */
+    wire cu_rf_write_en;                    /* habilita escrita no register file */
+    wire [WORDSIZE-1:0] cu_immediate;       /* immediate da instrução */
+    wire cu_mux_0_sel;                      /* seleção do primeiro mux (entrada para alu) */
+    wire cu_mux_1_sel;                      /* seleção do segundo mux (entrada para alu) */
+    wire cu_mux_2_sel;                      /* seleção do terceiro mux (entrada para register file) */
+    wire [2:0] cu_alu_operation;            /* definição da operação da alu */
+    wire cu_dm_write_en;                     /* habilita escrita no data_memory */
+
+    /* instanciação da unit under test */
+    control_unit uut(
+        .clk(clk),
+        .instruction(instruction),
+        .cu_rf_addr_a(cu_rf_addr_a),
+        .cu_rf_addr_b(cu_rf_addr_b),
+        .cu_rf_write_addr(cu_rf_write_addr),
+        .cu_rf_write_en(cu_rf_write_en),
+        .cu_immediate(cu_immediate),
+        .cu_mux_0_sel(cu_mux_0_sel),
+        .cu_mux_1_sel(cu_mux_1_sel),
+        .cu_mux_2_sel(cu_mux_2_sel),
+        .cu_alu_operation(cu_alu_operation),
+        .cu_dm_write_en(cu_dm_write_en)
+    );
+
+    /* início do testbench */
+    initial begin
+        clk = 0;
+        instruction = 32'b0000_0000_0000_0000_0000_0000_0_0000011;
+        /*
+        $monitor(
+            "clk = %H\n", clk,
+            "instruction = %H\n", instruction,
+            "cu_rf_addr_a = %H\n", cu_rf_addr_a,
+            "cu_rf_addr_b = %H\n", cu_rf_addr_b,
+            "cu_rf_write_addr = %H\n", cu_rf_write_addr,
+            "cu_rf_write_en = %H\n", cu_rf_write_en,
+            "cu_immediate = %H\n", cu_immediate,
+            "cu_mux_0_sel = %H\n", cu_mux_0_sel,
+            "cu_mux_1_sel = %H\n", cu_mux_1_sel,
+            "cu_mux_2_sel = %H\n", cu_mux_2_sel,
+            "cu_alu_operation = %H\n", cu_alu_operation,
+            "cu_dm_write_en = %H\n", cu_dm_write_en
+        ); */
+        clk = 0; #100;
+        clk = 1; #100;
+        #100;
+    end
+endmodule
