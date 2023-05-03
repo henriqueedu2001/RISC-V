@@ -39,3 +39,41 @@ clk = 1; mem[4] = 0000000000000005
 clk = 0; mem[4] = 0000000000000005
 
 --STORE INSTRUCTION TEST END--
+
+--ADD INSTRUCTION TEST BEGIN--
+
+instruction: add x1, x2, x0
+parameters:
+   -cpu_rf_addr_a = 00010
+   -cpu_rf_addr_b = 00000
+   -cpu_rf_write_addr = 00001
+   -cpu_rf_write_en = 1
+   -cpu_immediate = 0000000000000000
+   -cpu_mux_0_sel = 0
+   -cpu_mux_1_sel = 1
+   -cpu_mux_2_sel = 0
+   -cpu_alu_operation = 000
+   -cpu_dm_write_en = 0
+
+clk = 0; x1 = 0000000000000005
+
+--ADD INSTRUCTION TEST END--
+
+--SUB INSTRUCTION TEST BEGIN--
+
+instruction: sub x1, x0, x2
+parameters:
+   -cpu_rf_addr_a = 00000
+   -cpu_rf_addr_b = 00010
+   -cpu_rf_write_addr = 00001
+   -cpu_rf_write_en = 1
+   -cpu_immediate = 0000000000000000
+   -cpu_mux_0_sel = 0
+   -cpu_mux_1_sel = 1
+   -cpu_mux_2_sel = 0
+   -cpu_alu_operation = 001
+   -cpu_dm_write_en = 0
+
+clk = 0; x1 = fffffffffffffffb
+
+--SUB INSTRUCTION TEST END--

@@ -124,5 +124,83 @@ module cpu_test #(
 
         $monitor("\n--STORE INSTRUCTION TEST END--\n");
         #100;
+
+        /* teste de instrução add: add x1, x2, x0 */
+        cpu_rf_addr_a = 5'b00010;                   /* recebe x2 */
+        cpu_rf_addr_b = 5'b00000;                   /* recebe x0 */
+        cpu_rf_write_addr = 5'b00001;               /* recebe x1 */
+        cpu_rf_write_en = 1;                        /* ativa escrita no register file */
+        cpu_immediate = 64'h0000_0000_0000_0000;    /* irrelevante */
+        cpu_mux_0_sel = 0;                          /* seleciona o x2 */
+        cpu_mux_1_sel = 1;                          /* seleciona o x0 */
+        cpu_mux_2_sel = 0;                          /* seleciona a soma feita na alu */
+        cpu_alu_operation = 3'b000;                 /* soma x7 com immediate */
+        cpu_dm_write_en = 0;                        /* desativa escrita no data memory */
+        
+        $monitor("--ADD INSTRUCTION TEST BEGIN--\n\n",
+            "instruction: add x1, x2, x0\n", 
+            "parameters:\n",
+            "   -cpu_rf_addr_a = %B", cpu_rf_addr_a, "\n",
+            "   -cpu_rf_addr_b = %B", cpu_rf_addr_b, "\n",
+            "   -cpu_rf_write_addr = %B", cpu_rf_write_addr, "\n",
+            "   -cpu_rf_write_en = %B", cpu_rf_write_en, "\n",
+            "   -cpu_immediate = %H", cpu_immediate, "\n",
+            "   -cpu_mux_0_sel = %B", cpu_mux_0_sel, "\n",
+            "   -cpu_mux_1_sel = %B", cpu_mux_1_sel, "\n",
+            "   -cpu_mux_2_sel = %B", cpu_mux_2_sel, "\n",
+            "   -cpu_alu_operation = %B", cpu_alu_operation, "\n",
+            "   -cpu_dm_write_en = %B", cpu_dm_write_en, "\n"
+        );
+        #100;
+
+        cpu_clk = 0; #100;
+        cpu_clk = 1; #100;
+        cpu_clk = 0; #100;
+
+        cpu_rf_addr_a = 5'b00001;
+        $monitor("clk = %B; x1 = %H", cpu_clk, cpu_reading_rf_data_a);
+        #100;
+
+        $monitor("\n--ADD INSTRUCTION TEST END--\n");
+        #100;
+
+        /* teste de instrução sub: sub x1, x0, x2 */
+        cpu_rf_addr_a = 5'b00000;                   /* recebe x0 */
+        cpu_rf_addr_b = 5'b00010;                   /* recebe x2 */
+        cpu_rf_write_addr = 5'b00001;               /* recebe x1 */
+        cpu_rf_write_en = 1;                        /* ativa escrita no register file */
+        cpu_immediate = 64'h0000_0000_0000_0000;    /* irrelevante */
+        cpu_mux_0_sel = 0;                          /* seleciona o x0 */
+        cpu_mux_1_sel = 1;                          /* seleciona o x2 */
+        cpu_mux_2_sel = 0;                          /* seleciona a subtração feita na alu */
+        cpu_alu_operation = 3'b001;                 /* subtração dos operandos */
+        cpu_dm_write_en = 0;                        /* desativa escrita no data memory */
+        
+        $monitor("--SUB INSTRUCTION TEST BEGIN--\n\n",
+            "instruction: sub x1, x0, x2\n", 
+            "parameters:\n",
+            "   -cpu_rf_addr_a = %B", cpu_rf_addr_a, "\n",
+            "   -cpu_rf_addr_b = %B", cpu_rf_addr_b, "\n",
+            "   -cpu_rf_write_addr = %B", cpu_rf_write_addr, "\n",
+            "   -cpu_rf_write_en = %B", cpu_rf_write_en, "\n",
+            "   -cpu_immediate = %H", cpu_immediate, "\n",
+            "   -cpu_mux_0_sel = %B", cpu_mux_0_sel, "\n",
+            "   -cpu_mux_1_sel = %B", cpu_mux_1_sel, "\n",
+            "   -cpu_mux_2_sel = %B", cpu_mux_2_sel, "\n",
+            "   -cpu_alu_operation = %B", cpu_alu_operation, "\n",
+            "   -cpu_dm_write_en = %B", cpu_dm_write_en, "\n"
+        );
+        #100;
+
+        cpu_clk = 0; #100;
+        cpu_clk = 1; #100;
+        cpu_clk = 0; #100;
+
+        cpu_rf_addr_a = 5'b00001;
+        $monitor("clk = %B; x1 = %H", cpu_clk, cpu_reading_rf_data_a);
+        #100;
+
+        $monitor("\n--SUB INSTRUCTION TEST END--\n");
+        #100;
     end
 endmodule
