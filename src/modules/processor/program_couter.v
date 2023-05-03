@@ -3,7 +3,8 @@ module program_counter #(
     parameter WORDSIZE = 64           /* define o tamanho da palavra */
 ) (
     input wire clk,                   /* sinal de clock */
-    output wire [WORDSIZE-1:0] addr   /* endereço da instrução atual */
+    input reset,
+    output wire [WORDSIZE-1:0] addr,  /* endereço da instrução atual */
 );
 
     reg [WORDSIZE-1:0] current_addr; /* registrador para guardar endereço atual */
@@ -21,7 +22,10 @@ module program_counter #(
     /* ativação em borda de subida */
     always @(posedge clk) begin
         /* incremento em borda de subida */
-        current_addr = temp + increment;
+        if(reset)
+            current_addr = 0;
+        else
+            current_addr = temp + increment;
     end
 
     /* ativação em borda de descida */
