@@ -117,6 +117,16 @@ module cpu #(
         .write_en(dm_write_en),
         .data_output(dm_data_output)
     );
+
+    // always @(posedge cpu_clk) begin
+    //     $monitor(
+    //         "cpu_clk = %H\n", cpu_clk,
+    //         "dm_addr = %H\n", dm_addr,
+    //         "dm_data_input = %H\n", dm_data_input,
+    //         "dm_write_en = %H\n", dm_write_en,
+    //         "dm_data_output = %H\n", dm_data_output
+    //     );
+    // end
     
     alu alu_inst (
         .input_a(alu_input_a),
