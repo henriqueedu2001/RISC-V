@@ -50,6 +50,13 @@ iverilog -o pc ../src/modules/processor/program_couter.v ../src/testbenchs/tests
 ```
 vvp pc
 ```
+## INSTRUCTION MEMORY
+```
+iverilog -o im ../src/modules/processor/instruction_memory.v ../src/testbenchs/tests/processor/instruction_memory_test.v
+```
+```
+vvp im
+```
 
 ## ALU
 ```
