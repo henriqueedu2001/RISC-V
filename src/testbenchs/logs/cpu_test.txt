@@ -1,0 +1,41 @@
+--LOAD INSTRUCTION TEST BEGIN--
+
+instruction: lw x2, #5(x7)
+parameters:
+   -cpu_rf_addr_a = 00111
+   -cpu_rf_addr_b = 00010
+   -cpu_rf_write_addr = 00010
+   -cpu_rf_write_en = 1
+   -cpu_immediate = 0000000000000005
+   -cpu_mux_0_sel = 0
+   -cpu_mux_1_sel = 0
+   -cpu_mux_2_sel = 0
+   -cpu_alu_operation = 000
+   -cpu_dm_write_en = 0
+
+clk = 0; x2 = 0000000000000000
+clk = 1; x2 = 0000000000000005
+clk = 0; x2 = 0000000000000005
+
+--LOAD INSTRUCTION TEST END--
+
+--STORE INSTRUCTION TEST BEGIN--
+
+instruction: sw x4, #23(x8)
+parameters:
+   -cpu_rf_addr_a = 00100
+   -cpu_rf_addr_b = 00010
+   -cpu_rf_write_addr = 00000
+   -cpu_rf_write_en = 0
+   -cpu_immediate = 0000000000000017
+   -cpu_mux_0_sel = 1
+   -cpu_mux_1_sel = 0
+   -cpu_mux_2_sel = 0
+   -cpu_alu_operation = 000
+   -cpu_dm_write_en = 1
+
+clk = 0; mem[4] = xxxxxxxxxxxxxxxx
+clk = 1; mem[4] = 0000000000000005
+clk = 0; mem[4] = 0000000000000005
+
+--STORE INSTRUCTION TEST END--
