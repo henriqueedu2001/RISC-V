@@ -49,16 +49,34 @@ module control_unit_test #(
         instruction_02 = {
             7'b1011011,          /* immediate[11:5] */
             5'b00111,            /* rs2 */
-            5'b00111,            /* rs1 */
+            5'b10011,            /* rs1 */
             3'b000,              /* funct3 */
             5'b00011,            /* immediate[4:0] */
             7'b0100011           /* opcode */
+        },
+        /* add */
+        instruction_03 = {
+            7'b0000000,          /* funct7 */
+            5'b00111,            /* rs2 */
+            5'b10011,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00011,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* sub */
+        instruction_04 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
         };
 
     /* início do testbench */
     initial begin
         clk = 0;
-        instruction = instruction_02;
+        instruction = instruction_03;
         
         $monitor(
             "clk = %B\n", clk,
