@@ -31,7 +31,19 @@ module program_counter_test #(
         clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+
+        $monitor("addr = %H", addr);
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+
+        $monitor("addr = %H", addr);
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+
+        $monitor("addr = %H", addr);
         clk = 0; reset = 1; #100; clk = 1; reset = 1; #100;
+
+        $monitor("addr = %H", addr);
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
         clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
