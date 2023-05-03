@@ -37,19 +37,28 @@ module control_unit_test #(
 
     /* instruções */
     localparam 
-        /* loadword */
+        /* load word */
         instruction_01 = {
             12'b0000_0110_1011,  /* immediate */
             5'b00111,            /* rs1 */
             3'b000,              /* funct3 */
             5'b00011,            /* rd */
             7'b0000011           /* opcode */
+        },
+        /* store word */
+        instruction_02 = {
+            7'b1011011,          /* immediate[11:5] */
+            5'b00111,            /* rs2 */
+            5'b00111,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00011,            /* immediate[4:0] */
+            7'b0100011           /* opcode */
         };
 
     /* início do testbench */
     initial begin
         clk = 0;
-        instruction = instruction_01;
+        instruction = instruction_02;
         
         $monitor(
             "clk = %B\n", clk,
