@@ -59,14 +59,31 @@ module cpu_test #(
         cpu_mux_2_sel = 0;                          /* seleciona a soma feita na alu */
         cpu_alu_operation = 3'b000;                 /* soma x7 com immediate */
         cpu_dm_write_en = 0;                        /* desativa escrita no data memory */
+        
+        $monitor("--LOAD INSTRUCTION TEST BEGIN--\n\n",
+            "instruction: lw x2, #5(x7)\n", 
+            "parameters:\n",
+            "   -cpu_rf_addr_a = %B", cpu_rf_addr_a, "\n",
+            "   -cpu_rf_addr_b = %B", cpu_rf_addr_b, "\n",
+            "   -cpu_rf_write_addr = %B", cpu_rf_write_addr, "\n",
+            "   -cpu_rf_write_en = %B", cpu_rf_write_en, "\n",
+            "   -cpu_immediate = %H", cpu_immediate, "\n",
+            "   -cpu_mux_0_sel = %B", cpu_mux_0_sel, "\n",
+            "   -cpu_mux_1_sel = %B", cpu_mux_1_sel, "\n",
+            "   -cpu_mux_2_sel = %B", cpu_mux_2_sel, "\n",
+            "   -cpu_alu_operation = %B", cpu_alu_operation, "\n",
+            "   -cpu_dm_write_en = %B", cpu_dm_write_en, "\n"
+        );
         #100;
-        
-        //$monitor("%B\n%B\n%B\n%B\n", cpu_rf_addr_a, cpu_rf_addr_b, cpu_rf_write_en, cpu_rf_write_addr);
 
+        $monitor("clk = %B; x2 = %H", cpu_clk, cpu_reading_rf_data_b);
         cpu_clk = 0; #100;
+        $monitor("clk = %B; x2 = %H", cpu_clk, cpu_reading_rf_data_b);
         cpu_clk = 1; #100;
+        $monitor("clk = %B; x2 = %H", cpu_clk, cpu_reading_rf_data_b);
         cpu_clk = 0; #100;
-        
-        $monitor(cpu_reading_rf_data_b);
+
+        $monitor("\n--LOAD INSTRUCTION TEST END--\n");
+        #100;
     end
 endmodule
