@@ -49,6 +49,18 @@ module cpu_test #(
 
     /* início do testbench */
     initial begin
+
+        /* operações a serem feitas em sequência */
+        $monitor(
+            "--INSTRUCTIONS FOR TESTING--\n",
+            "   lw x2, #5(x7)\n",
+            "   sw x4, #23(x8)\n",
+            "   add x1, x2, x0\n",
+            "   sub x1, x0, x2\n",
+            "--INSTRUCTIONS FOR TESTING--\n"
+        );
+        #100;
+
         /* teste de instrução load word: lw x2, #5(x7) */
         cpu_rf_addr_a = 5'b00111;                   /* recebe x7 */
         cpu_rf_addr_b = 5'b00010;                   /* (opcional) para acompanhar os valores de x2 */

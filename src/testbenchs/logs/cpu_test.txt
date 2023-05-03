@@ -1,3 +1,10 @@
+--INSTRUCTIONS FOR TESTING--
+   lw x2, #5(x7)
+   sw x4, #23(x8)
+   add x1, x2, x0
+   sub x1, x0, x2
+--INSTRUCTIONS FOR TESTING--
+
 --LOAD INSTRUCTION TEST BEGIN--
 
 instruction: lw x2, #5(x7)
