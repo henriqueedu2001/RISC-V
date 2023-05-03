@@ -75,7 +75,7 @@ module control_unit_test #(
 
     /* início do testbench */
     initial begin
-        clk = 0;
+        
         instruction = instruction_03;
         
         $monitor(
@@ -92,8 +92,10 @@ module control_unit_test #(
             "cu_alu_operation = %B\n", cu_alu_operation,
             "cu_dm_write_en = %B\n", cu_dm_write_en
         );
-        clk = 0; #100;
-        clk = 1; #100;
         #100;
+
+        // clk = 0; #100; clk = 1; #100;
+        // clk = 0; #100; clk = 1; #100;
+
     end
 endmodule

@@ -73,6 +73,13 @@ module control_unit #(
     wire [4:0] r_type_rd;
     wire [6:0] r_type_opcode;
 
+    assign r_type_funct7 = instruction[31:0];
+    assign r_type_rs2 = instruction[24:20];
+    assign r_type_rs1 = instruction[19:15];
+    assign r_type_funct3 = instruction[14:12];
+    assign r_type_rd = instruction[11:7];
+    assign r_type_opcode = instruction[6:0];
+
     /* sinais separados por tipos */
     always @(*) begin
         case (op_code)
@@ -106,30 +113,30 @@ module control_unit #(
 
             /* instrução add: add rd, rs1, rs2 */
             op_code_add: begin
-                cu_rf_addr_a = s_type_rs1;       /* recebe rs1 */
-                cu_rf_addr_b = s_type_rs2;       /* recebe rs2 */
-                cu_rf_write_addr = 0;            /* irrelevante */
-                cu_rf_write_en = 0;              /* ativa escrita no register file */
-                cu_immediate = s_type_imm;       /* recebe immediate */
-                cu_mux_0_sel = 1;                /* seleciona o rs1 */
-                cu_mux_1_sel = 0;                /* seleciona o immediate */
-                cu_mux_2_sel = 0;                /* seleciona o resultado da ALU  */
+                cu_rf_addr_a = r_type_rs1;       /* recebe rs1 */
+                cu_rf_addr_b = r_type_rs2;       /* recebe rs2 */
+                cu_rf_write_addr = r_type_rd;    /* recebe rd */
+                cu_rf_write_en = 1;              /* ativa escrita no register file */
+                cu_immediate = 0;                /* irrelevante */
+                cu_mux_0_sel = 0;                /* seleciona o rs1 */
+                cu_mux_1_sel = 1;                /* seleciona o rs2 */
+                cu_mux_2_sel = 0;                /* seleciona o resultado da ALU */
                 cu_alu_operation = 3'b000;       /* recebe operação de soma */
-                cu_dm_write_en = 1;              /* desativa escrita no data memory */
+                cu_dm_write_en = 0;              /* desativa escrita no data memory */
             end
 
             /* instrução sub */
             op_code_sub: begin
-                cu_rf_addr_a = s_type_rs1;       /* recebe rs1 */
-                cu_rf_addr_b = s_type_rs2;       /* recebe rs2 */
-                cu_rf_write_addr = 0;            /* irrelevante */
-                cu_rf_write_en = 0;              /* ativa escrita no register file */
-                cu_immediate = s_type_imm;       /* recebe immediate */
-                cu_mux_0_sel = 1;                /* seleciona o rs1 */
-                cu_mux_1_sel = 0;                /* seleciona o immediate */
-                cu_mux_2_sel = 0;                /* seleciona o resultado da ALU  */
+                cu_rf_addr_a = r_type_rs1;       /* recebe rs1 */
+                cu_rf_addr_b = r_type_rs2;       /* recebe rs2 */
+                cu_rf_write_addr = r_type_rd;    /* recebe rd */
+                cu_rf_write_en = 1;              /* ativa escrita no register file */
+                cu_immediate = 0;                /* irrelevante */
+                cu_mux_0_sel = 0;                /* seleciona o rs1 */
+                cu_mux_1_sel = 1;                /* seleciona o rs2 */
+                cu_mux_2_sel = 0;                /* seleciona o resultado da ALU */
                 cu_alu_operation = 3'b000;       /* recebe operação de soma */
-                cu_dm_write_en = 1;              /* desativa escrita no data memory */
+                cu_dm_write_en = 0;              /* desativa escrita no data memory */
             end
             default: begin
             end
