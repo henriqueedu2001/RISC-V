@@ -1,21 +1,23 @@
 /* descrição */
 module cpu #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
-    parameter SIZE = 512               /* tamanho da memória */
+    parameter SIZE = 512,              /* tamanho da memória */
+    parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
 ) (
-
+    input wire instruction,
     input wire cpu_clk
 );
-    wire [4:0] cu_rf_addr_a;
-    wire [4:0] cu_rf_addr_b;
-    wire [4:0] cu_rf_write_addr;
-    wire cu_rf_write_en; //cpu_ rf_write_en
-    wire [WORDSIZE-1:0] cu_immediate;
-    wire cu_mux_0_sel;
-    wire cu_mux_1_sel;
-    wire cu_mux_2_sel;
-    wire [2:0] cu_alu_operation;
-    wire cu_dm_write_en;
+
+    // wire [4:0] cu_rf_addr_a;
+    // wire [4:0] cu_rf_addr_b;
+    // wire [4:0] cu_rf_write_addr;
+    // wire cu_rf_write_en;
+    // wire [WORDSIZE-1:0] cu_immediate;
+    // wire cu_mux_0_sel;
+    // wire cu_mux_1_sel;
+    // wire cu_mux_2_sel;
+    // wire [2:0] cu_alu_operation;
+    // wire cu_dm_write_en;
     
     /* fios do register file */
     wire [4:0] rf_addr_a;
@@ -38,6 +40,26 @@ module cpu #(
     wire [2:0] alu_operation;
     wire [WORDSIZE-1:0] alu_result;
     wire alu_overflow;
+
+    /* fios da unidade de controle */
+    wire [WORDSIZE-1:0] cu_instruction;     /* instrução para unidade de controle */
+    wire [4:0] cu_rf_addr_a;                /* seleção de addr_a no register file */
+    wire [4:0] cu_rf_addr_b;                /* seleção de addr_b no register file */
+    wire [4:0] cu_rf_write_addr;            /* seleção de write_addr no register file */
+    wire cu_rf_write_en;                    /* habilita escrita no register file */
+    wire [WORDSIZE-1:0] cu_immediate;       /* immediate da instrução */
+    wire cu_mux_0_sel;                      /* seleção do primeiro mux (entrada para alu) */
+    wire cu_mux_1_sel;                      /* seleção do segundo mux (entrada para alu) */
+    wire cu_mux_2_sel;                      /* seleção do terceiro mux (entrada para register file) */
+    wire [2:0] cu_alu_operation;            /* definição da operação da alu */
+    wire cu_dm_write_en;                    /* habilita escrita no data_memory */
+
+    /* fios do instruction memory */
+    wire [INSTRUCTION_SIZE-1:0] im_instruction;
+    wire [WORDSIZE-1:0] im_addr;
+
+    /* fios do program counter */
+    wire [WORDSIZE-1:0] pc_addr;
 
     /* fios dos multiplexadores */
     wire mux_0_sel;
@@ -71,6 +93,12 @@ module cpu #(
     assign alu_input_a = mux_0_out;
     assign alu_input_b = mux_1_out;
     assign alu_operation = cpu_alu_operation;
+
+    /* entradas da control unit */
+    assign cu_instruction = im_instruction;
+
+    /* entradas do program counter */
+    // assign pc_addr = ;
 
     /* entradas nos multiplexadores */
     assign mux_0_input_a = rf_data_a;
@@ -110,6 +138,31 @@ module cpu #(
         .operation(alu_operation),
         .result(alu_result),
         .overflow(alu_overflow)
+    );
+
+    control_unit cu(
+        .clk(cpu_clk),
+        .instruction(im_instruction), 
+        .cu_rf_addr_a(cu_rf_addr_a),                
+        .cu_rf_addr_b(cu_rf_addr_b),                
+        .cu_rf_write_addr(cu_rf_write_addr),            
+        .cu_rf_write_en(cu_rf_write_en),                     
+        .cu_immediate(cu_immediate),       
+        .cu_mux_0_sel(cu_mux_0_sel),                       
+        .cu_mux_1_sel(cu_mux_1_sel),                       
+        .cu_mux_2_sel(cu_mux_2_sel),                       
+        .cu_alu_operation(cu_alu_operation),            
+        .cu_dm_write_en(cu_dm_write_en)                    
+    );
+
+    program_counter pc(
+        .clk(cpu_clk),
+        .addr(pc_addr)
+    );
+
+    instruction_memory im(
+        .instruction(im_instruction),
+        .addr(im_addr)
     );
 
     general_mux mux_0(

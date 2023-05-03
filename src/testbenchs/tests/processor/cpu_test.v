@@ -4,26 +4,6 @@
 module cpu_test #(
     parameter WORDSIZE = 64
 ) ();
-    reg [4:0] cpu_rf_addr_a;
-    reg [4:0] cpu_rf_addr_b;
-    reg [4:0] cpu_rf_write_addr;
-    reg cpu_rf_write_en;
-    reg [WORDSIZE-1:0] cpu_immediate;
-    reg cpu_mux_0_sel;
-    reg cpu_mux_1_sel;
-    reg cpu_mux_2_sel;
-    reg [2:0] cpu_alu_operation;
-    reg cpu_dm_write_en;
-    reg cpu_clk;
-
-    /* sinais de leitura */
-    wire [WORDSIZE-1:0] cpu_reading_rf_data_a;
-    wire [WORDSIZE-1:0] cpu_reading_rf_data_b;
-    wire [WORDSIZE-1:0] cpu_reading_alu_result;
-    wire [WORDSIZE-1:0] cpu_reading_dm_data_output;
-    output wire [WORDSIZE-1:0] cpu_reading_mux_0_out;
-    output wire [WORDSIZE-1:0] cpu_reading_mux_1_out;
-    output wire [WORDSIZE-1:0] cpu_reading_mux_2_out;
 
     /* instanciação da unit under test */
     cpu uut(
@@ -37,14 +17,7 @@ module cpu_test #(
         .cpu_mux_2_sel(cpu_mux_2_sel),
         .cpu_alu_operation(cpu_alu_operation),
         .cpu_clk(cpu_clk),
-        .cpu_reading_rf_data_a(cpu_reading_rf_data_a),
-        .cpu_reading_rf_data_b(cpu_reading_rf_data_b),
-        .cpu_reading_alu_result(cpu_reading_alu_result),
-        .cpu_reading_dm_data_output(cpu_reading_dm_data_output),
-        .cpu_dm_write_en(cpu_dm_write_en),
-        .cpu_reading_mux_0_out(cpu_reading_mux_0_out),
-        .cpu_reading_mux_1_out(cpu_reading_mux_1_out),
-        .cpu_reading_mux_2_out(cpu_reading_mux_2_out)
+        .cpu_dm_write_en(cpu_dm_write_en)
     );
 
     /* início do testbench */
