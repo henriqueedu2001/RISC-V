@@ -35,25 +35,36 @@ module control_unit_test #(
         .cu_dm_write_en(cu_dm_write_en)
     );
 
+    /* instruções */
+    localparam 
+        /* loadword */
+        instruction_01 = {
+            12'b0000_0110_1011,  /* immediate */
+            5'b00111,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00011,            /* rd */
+            7'b0000011           /* opcode */
+        };
+
     /* início do testbench */
     initial begin
         clk = 0;
-        instruction = 32'b0000_0000_0000_0000_0000_0000_0_0000011;
-        /*
+        instruction = instruction_01;
+        
         $monitor(
-            "clk = %H\n", clk,
-            "instruction = %H\n", instruction,
-            "cu_rf_addr_a = %H\n", cu_rf_addr_a,
-            "cu_rf_addr_b = %H\n", cu_rf_addr_b,
-            "cu_rf_write_addr = %H\n", cu_rf_write_addr,
-            "cu_rf_write_en = %H\n", cu_rf_write_en,
-            "cu_immediate = %H\n", cu_immediate,
-            "cu_mux_0_sel = %H\n", cu_mux_0_sel,
-            "cu_mux_1_sel = %H\n", cu_mux_1_sel,
-            "cu_mux_2_sel = %H\n", cu_mux_2_sel,
-            "cu_alu_operation = %H\n", cu_alu_operation,
-            "cu_dm_write_en = %H\n", cu_dm_write_en
-        ); */
+            "clk = %B\n", clk,
+            "instruction = %B\n", instruction,
+            "cu_rf_addr_a = %B\n", cu_rf_addr_a,
+            "cu_rf_addr_b = %B\n", cu_rf_addr_b,
+            "cu_rf_write_addr = %B\n", cu_rf_write_addr,
+            "cu_rf_write_en = %B\n", cu_rf_write_en,
+            "cu_immediate = %B\n", cu_immediate,
+            "cu_mux_0_sel = %B\n", cu_mux_0_sel,
+            "cu_mux_1_sel = %B\n", cu_mux_1_sel,
+            "cu_mux_2_sel = %B\n", cu_mux_2_sel,
+            "cu_alu_operation = %B\n", cu_alu_operation,
+            "cu_dm_write_en = %B\n", cu_dm_write_en
+        );
         clk = 0; #100;
         clk = 1; #100;
         #100;

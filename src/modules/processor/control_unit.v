@@ -42,6 +42,12 @@ module control_unit #(
     wire [4:0] i_type_rd;
     wire [6:0] i_type_opcode;
 
+    assign i_type_imm = instruction[31:20];
+    assign i_type_rs1 = instruction[19:15];
+    assign i_type_funct3 = instruction[14:12];
+    assign i_type_rd = instruction[11:7];
+    assign i_type_opcode = instruction[6:0];
+
     /* instruções tipo S */
     wire [6:0] s_type_imm1;
     wire [4:0] s_type_rs2;
@@ -49,30 +55,31 @@ module control_unit #(
     wire [2:0] s_type_funct3;
     wire [4:0] s_type_imm2;
     wire [6:0] s_type_opcode;
+    wire [11:0] s_type_imm;
 
-    /* instruções tipo S */
-    wire [6:0] funct7;
-    wire [4:0] rs2;
-    wire [4:0] rs1;
-    wire [2:0] funct3;
-    wire [4:0] rd;
-    wire [6:0] opcode;
+    /* instruções tipo R */
+    wire [6:0] r_type_funct7;
+    wire [4:0] r_type_rs2;
+    wire [4:0] r_type_rs1;
+    wire [2:0] r_type_funct3;
+    wire [4:0] r_type_rd;
+    wire [6:0] r_type_opcode;
 
     /* sinais separados por tipos */
     always @(*) begin
         case (op_code)
             /* instrução load word: lw rd, #immediate(rs1) */
             op_code_load_word: begin
-                cu_rf_addr_a = 0;       /* recebe rs1 */
-                cu_rf_addr_b = 0;       /* irrelevante */
-                cu_rf_write_addr = 0;   /* rd */
-                cu_rf_write_en = 1;     /* ativa escrita no register file */
-                cu_immediate = 0;       /* recebe immediate */
-                cu_mux_0_sel = 0;       /* seleciona o rs1 */
-                cu_mux_1_sel = 0;       /* seleciona o immediate */
-                cu_mux_2_sel = 0;       /* seleciona o resultado da ALU  */
-                cu_alu_operation = 0;   /* recebe operação de soma */
-                cu_dm_write_en = 0;     /* desativa escrita no data memory */
+                cu_rf_addr_a = i_type_rs1;       /* recebe rs1 */
+                cu_rf_addr_b = i_type_rd;        /* irrelevante */
+                cu_rf_write_addr = i_type_rd;    /* rd */
+                cu_rf_write_en = 1;              /* ativa escrita no register file */
+                cu_immediate = i_type_imm;       /* recebe immediate */
+                cu_mux_0_sel = 0;                /* seleciona o rs1 */
+                cu_mux_1_sel = 0;                /* seleciona o immediate */
+                cu_mux_2_sel = 0;                /* seleciona o resultado da ALU  */
+                cu_alu_operation = 3'b000;       /* recebe operação de soma */
+                cu_dm_write_en = 0;              /* desativa escrita no data memory */
             end
             op_code_load_word: begin
             end
