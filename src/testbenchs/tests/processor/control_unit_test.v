@@ -94,8 +94,5 @@ module control_unit_test #(
         );
         #100;
 
-        // clk = 0; #100; clk = 1; #100;
-        // clk = 0; #100; clk = 1; #100;
-
     end
 endmodule

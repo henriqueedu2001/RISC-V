@@ -4,7 +4,8 @@ module cpu #(
     parameter SIZE = 512,              /* tamanho da memória */
     parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
 ) (
-    input wire cpu_clk,                  /* sinal de clock */
+    input wire cpu_clk,                                 /* sinal de clock para demais componentes da cpu*/
+    input wire pc_clk,                                  /* sinal de clock para program counter */
     output wire [WORDSIZE-1:0] cpu_reading_rf_data_a,   /* leitura do register file data_a */
     output wire [WORDSIZE-1:0] cpu_reading_rf_data_b,   /* leitura do register file data_b */
     output wire [WORDSIZE-1:0] cpu_reading_dm_data_out, /* leitura do data_output do data memory */
@@ -162,7 +163,7 @@ module cpu #(
     );
 
     program_counter pc(
-        .clk(cpu_clk),
+        .clk(pc_clk),
         .addr(pc_addr)
     );
 
