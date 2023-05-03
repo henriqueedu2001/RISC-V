@@ -6,11 +6,13 @@ module program_counter_test #(
 ) ();
 
     reg clk;
+    reg reset;
     wire [WORDSIZE-1:0] addr;
 
     /* instanciação da unit under test */
     program_counter uut(
         .clk(clk),
+        .reset(reset),
         .addr(addr)
     );
 
@@ -20,19 +22,19 @@ module program_counter_test #(
         #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; #100; clk = 1; #100;
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; #100; clk = 1; #100;
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; #100; clk = 1; #100;
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; #100; clk = 1; #100;
+        clk = 0; reset = 1; #100; clk = 1; reset = 1; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; #100; clk = 1; #100;
+        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("--PROGRAM COUNTER TEST END--\n");
         #100;
