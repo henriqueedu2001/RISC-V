@@ -94,7 +94,7 @@ module cpu #(
     assign cu_instruction = im_instruction;
 
     /* entradas do program counter */
-    // assign pc_addr = ;
+    assign im_addr = pc_addr;
 
     /* entradas nos multiplexadores */
     assign mux_0_input_a = rf_data_a;
@@ -191,8 +191,5 @@ module cpu #(
         .sel(mux_2_sel),
         .out(mux_2_out)
     );
-
-
-
 
 endmodule

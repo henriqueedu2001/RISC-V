@@ -40,5 +40,9 @@ module cpu_test #(
             "cpu_reading_im_instr = %H\n", cpu_reading_im_instr,
             "cpu_reading_pc_addr = %H\n", cpu_reading_pc_addr
         );
+
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
     end
 endmodule

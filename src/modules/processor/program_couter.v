@@ -10,7 +10,7 @@ module program_counter #(
     reg [WORDSIZE-1:0] temp;         /* registrador temporário, para executar soma */
 
     /* valor do incremento (increment = 32) */
-    reg [WORDSIZE-1:0] increment = 64'h0000_0000_0000_0020;
+    reg [WORDSIZE-1:0] increment = 64'h0000_0000_0000_0001;
 
     /* inicializar registradores em zero */
     initial begin
