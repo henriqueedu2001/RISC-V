@@ -43,6 +43,14 @@ iverilog -o dm ../src/modules/processor/data_memory.v ../src/testbenchs/tests/pr
 vvp dm
 ```
 
+## PROGRAM COUNTER
+```
+iverilog -o pc ../src/modules/processor/program_couter.v ../src/testbenchs/tests/processor/program_counter_test.v 
+```
+```
+vvp pc
+```
+
 ## ALU
 ```
 iverilog -o alu ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/modules/utility/opposite.v ../src/testbenchs/tests/processor/alu_test.v
