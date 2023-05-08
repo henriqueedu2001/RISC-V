@@ -6,7 +6,7 @@ module adder_sub #(
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
     input wire operation,               /* operação a ser realizada */
     output wire [WORDSIZE-1:0] result,  /* resultado */
-    output overflow
+    output wire overflow
 );
 
     /* somador-subtrator */
