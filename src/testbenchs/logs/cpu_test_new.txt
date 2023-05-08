@@ -1,0 +1,86 @@
+---LOAD INSTRUCTION TEST BEGIN---
+
+control signals:
+   -> cpu_reading_im_instr = 06b38183
+   -> cpu_reading_pc_addr = 0000000000000000
+   -> cpu_reading_rf_data_a = 0000000000000000
+   -> cpu_reading_rf_data_b = 0000000000000000
+   -> cpu_reading_dm_data_out = xxxxxxxxxxxxxxxx
+   -> cpu_reading_mux_0_out = 0000000000000000
+   -> cpu_reading_mux_1_out = 000000000000006b
+   -> cpu_reading_mux_2_out = xxxxxxxxxxxxxxxx
+
+(register file) register value: 0000000000000000
+(register file) register value: xxxxxxxxxxxxxxxx
+
+---LOAD INSTRUCTION TEST BEGIN---
+
+---STORE INSTRUCTION TEST BEGIN---
+
+control signals:
+   -> cpu_reading_im_instr = b67981a3
+   -> cpu_reading_pc_addr = 0000000000000001
+   -> cpu_reading_rf_data_a = 0000000000000000
+   -> cpu_reading_rf_data_b = 0000000000000000
+   -> cpu_reading_dm_data_out = xxxxxxxxxxxxxxxx
+   -> cpu_reading_mux_0_out = 0000000000000000
+   -> cpu_reading_mux_1_out = 0000000000000b63
+   -> cpu_reading_mux_2_out = xxxxxxxxxxxxxxxx
+
+---STORE INSTRUCTION TEST END---
+
+---ADD INSTRUCTION TEST BEGIN---
+
+control signals:
+   -> cpu_reading_im_instr = 007981b3
+   -> cpu_reading_pc_addr = 0000000000000002
+   -> cpu_reading_rf_data_a = 0000000000000000
+   -> cpu_reading_rf_data_b = 0000000000000000
+   -> cpu_reading_dm_data_out = xxxxxxxxxxxxxxxx
+   -> cpu_reading_mux_0_out = 0000000000000000
+   -> cpu_reading_mux_1_out = 0000000000000000
+   -> cpu_reading_mux_2_out = xxxxxxxxxxxxxxxx
+
+---ADD INSTRUCTION TEST END---
+
+---SUB INSTRUCTION TEST BEGIN---
+
+control signals:
+   -> cpu_reading_im_instr = 41fc8333
+   -> cpu_reading_pc_addr = 0000000000000003
+   -> cpu_reading_rf_data_a = 0000000000000000
+   -> cpu_reading_rf_data_b = 0000000000000000
+   -> cpu_reading_dm_data_out = xxxxxxxxxxxxxxxx
+   -> cpu_reading_mux_0_out = 0000000000000000
+   -> cpu_reading_mux_1_out = 0000000000000000
+   -> cpu_reading_mux_2_out = xxxxxxxxxxxxxxxx
+
+---SUB INSTRUCTION TEST END---
+
+---ADDi INSTRUCTION TEST BEGIN---
+
+control signals:
+   -> cpu_reading_im_instr = xxxxxxxx
+   -> cpu_reading_pc_addr = 0000000000000004
+   -> cpu_reading_rf_data_a = 0000000000000000
+   -> cpu_reading_rf_data_b = 0000000000000000
+   -> cpu_reading_dm_data_out = xxxxxxxxxxxxxxxx
+   -> cpu_reading_mux_0_out = 0000000000000000
+   -> cpu_reading_mux_1_out = 0000000000000000
+   -> cpu_reading_mux_2_out = xxxxxxxxxxxxxxxx
+
+---ADDi INSTRUCTION TEST END---
+
+---SUB iINSTRUCTION TEST BEGIN---
+
+control signals:
+   -> cpu_reading_im_instr = xxxxxxxx
+   -> cpu_reading_pc_addr = 0000000000000005
+   -> cpu_reading_rf_data_a = 0000000000000000
+   -> cpu_reading_rf_data_b = 0000000000000000
+   -> cpu_reading_dm_data_out = xxxxxxxxxxxxxxxx
+   -> cpu_reading_mux_0_out = 0000000000000000
+   -> cpu_reading_mux_1_out = 0000000000000000
+   -> cpu_reading_mux_2_out = xxxxxxxxxxxxxxxx
+
+---SUBi INSTRUCTION TEST END---

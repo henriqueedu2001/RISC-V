@@ -54,6 +54,8 @@ module instruction_memory #(
         instructions[1] = instruction_02; /* instrução de mem[1] */
         instructions[2] = instruction_03; /* instrução de mem[2] */
         instructions[3] = instruction_04; /* instrução de mem[3] */
+        instructions[4] = instruction_05; /* instrução de mem[4] */
+        instructions[5] = instruction_06; /* instrução de mem[5] */
         /* ... */
     end
 
