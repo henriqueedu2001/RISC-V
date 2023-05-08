@@ -6,7 +6,12 @@ module alu #(
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
     input wire [2:0] operation,         /* operação a ser realizada */
     output wire [WORDSIZE-1:0] result,  /* resultado */
-    output wire overflow                /* sinal de detecção de overflow */
+    output wire overflow,               /* sinal de detecção de overflow */
+    output wire equal,                  /*  */
+    output wire greater,                /*  */
+    output wire less,                   /*  */
+    output wire uns_greater,            /*  */
+    output wire uns_less                /*  */
 );
     /* operações da alu */
     localparam 
