@@ -6,17 +6,21 @@ module alu #(
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
     input wire [2:0] operation,         /* operação a ser realizada */
     output wire [WORDSIZE-1:0] result,  /* resultado */
-    output wire overflow,               /* sinal de detecção de overflow */
-    output wire equal,                  /*  */
-    output wire greater,                /*  */
-    output wire less,                   /*  */
-    output wire uns_greater,            /*  */
-    output wire uns_less                /*  */
+    output wire flag_overflow,          /* sinal de detecção de overflow */
+    output wire flag_equal,             /* flag */
+    output wire flag_greater,           /*  */
+    output wire flag_less,              /*  */
+    output wire flag_uns_greater,       /*  */
+    output wire flag_uns_less           /*  */
 );
+
     /* operações da alu */
     localparam 
-        alu_op_sum = 3'b000, /* operação soma */
-        alu_op_sub = 3'b001; /* operação subtração */
+        alu_op_sum = 3'b000,     /* operação soma */
+        alu_op_sub = 3'b001,     /* operação subtração */
+        alu_op_equal = 3'b010,   /* verifica se a == b */
+        alu_op_less = 3'b011,    /* verifica se a < b */
+        alu_op_greater = 3'b100; /* verifica se a > b */
 
     /* somador-subtrator */
     wire [WORDSIZE-1:0] adder_sum;  /* soma obtida pelo somador */

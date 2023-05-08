@@ -3,7 +3,13 @@ module equal #(
 ) (
     input wire [WORDSIZE-1:0] input_a,  
     input wire [WORDSIZE-1:0] input_b,
-    output wire equal
+    output reg equal
 ); 
 
+    always@(*) begin
+        if(input_a == input_b)
+            equal <= 1'b1;
+        else 
+            equal <= 1'b0;    
+    end
 endmodule
