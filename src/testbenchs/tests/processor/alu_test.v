@@ -6,7 +6,7 @@ module alu_test #(
 ) ();
     reg [WORDSIZE-1:0] input_a;
     reg [WORDSIZE-1:0] input_b;
-    reg [2:0] operation;
+    reg [5:0] operation;
     wire [WORDSIZE-1:0] result;
     wire overflow;
 
@@ -16,14 +16,15 @@ module alu_test #(
         .input_b(input_b),
         .operation(operation),
         .result(result),
-        .overflow(overflow)
+        .flag_overflow(overflow)
     );
 
     /* início do testbench */
     initial begin
         input_a = 64'h0000_0000_0000_0005;
         input_b = 64'h0000_0000_0000_0002;
-        operation = 3'b000;
+
+        operation = 6'b000000;
         $monitor("input_a = %H\ninput_b = %H\noperation = %B\nresult = %H\noverflow = %B\n", 
             input_a,
             input_b,
@@ -33,9 +34,7 @@ module alu_test #(
         );
         #100;
 
-        input_a = 64'h0000_0000_0000_0005;
-        input_b = 64'h0000_0000_0000_0002;
-        operation = 3'b001;
+        operation = 6'b000001;
         $monitor("input_a = %H\ninput_b = %H\noperation = %B\nresult = %H\noverflow = %B\n", 
             input_a,
             input_b,

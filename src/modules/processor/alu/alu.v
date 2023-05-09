@@ -42,6 +42,57 @@ module alu #(
         op_bitshift_l_right_shift = 6'b11_0010, /* (BITSHIFT) a >> b (lógico) */
         op_bitshift_l_left_shift = 6'b11_0011; /* (BITSHIFT) a << b (lógico) */
     
-    
+    /* saídas de cada módulo */
+    wire [WORDSIZE-1:0] alu_int_ar_out; /* saída de INT_AR */
+    wire [WORDSIZE-1:0] alu_flt_ar_out; /* saída de FLT_AR */
+    wire [WORDSIZE-1:0] alu_bitwise_out; /* saída de BITWISE */
+    wire [WORDSIZE-1:0] alu_bitshift_out; /* saída de BITSHIFT */
+
+    /* saída final */
+    wire [1:0] alu_unit_sel = operation[5:4];
+    reg [WORDSIZE-1:0] alu_result;
+
+    /* instanciação da INT_AR */
+    alu_int_ar alu_int_ar_unit(
+        .input_a(input_a),
+        .input_b(input_b),
+        .operation(operation),
+        .out(alu_int_ar_out)
+    );
+
+    /* instanciação da FLT_AR */
+    alu_flt_ar alu_flt_ar_unit(
+        .input_a(input_a),
+        .input_b(input_b),
+        .operation(operation),
+        .out(alu_int_ar_out)
+    );
+
+    /* instanciação da BITWISE */
+    alu_bitwise alu_bitwise_unit(
+        .input_a(input_a),
+        .input_b(input_b),
+        .operation(operation),
+        .out(alu_int_ar_out)
+    );
+
+    /* instanciação da BITSHIFT */
+    alu_bitshift alu_bitshift_unit(
+        .input_a(input_a),
+        .input_b(input_b),
+        .operation(operation),
+        .out(alu_int_ar_out)
+    );
+
+    always @(*) begin
+        case (alu_unit_sel)
+            2'b00: alu_result = alu_int_ar_out;
+            2'b01: alu_result = alu_flt_ar_out;
+            2'b10: alu_result = alu_bitwise_out;
+            2'b11: alu_result = alu_bitshift_out;
+        endcase
+    end
+
+    assign result = alu_int_ar_out;
 
 endmodule
