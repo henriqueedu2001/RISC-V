@@ -31,7 +31,7 @@ module flagger_test #(
 
         input_a = 64'h0000_0000_0000_0005;
         input_b = 64'h0000_0000_0000_0002;
-        $monitor("input_a = %H\n input_b = %H\n equal = %H\n not_equal = %H\n greater = %H\n less = %H\n u_gretaer = %H\n u_less = %H\n", 
+        $display("input_a = %D\n input_b = %D\n equal = %D\n not_equal = %D\n greater = %D\n less = %D\n u_gretaer = %D\n u_less = %D\n", 
             input_a,
             input_b,
             flag_equal,
@@ -45,7 +45,7 @@ module flagger_test #(
 
         input_a = 64'h0000_0000_0000_0005;
         input_b = 64'h0000_0000_0000_0005;
-        $monitor("input_a = %H\n input_b = %H\n equal = %H\n not_equal = %H\n greater = %H\n less = %H\n u_gretaer = %H\n u_less = %H\n", 
+        $display("input_a = %D\n input_b = %D\n equal = %D\n not_equal = %D\n greater = %D\n less = %D\n u_gretaer = %D\n u_less = %D\n", 
             input_a,
             input_b,
             flag_equal,
@@ -59,7 +59,7 @@ module flagger_test #(
 
         input_a = 64'h0000_0000_0000_0001;
         input_b = 64'h0000_0000_0000_0001;
-        $monitor("input_a = %H\n input_b = %H\n equal = %H\n not_equal = %H\n greater = %H\n less = %H\n u_gretaer = %H\n u_less = %H\n", 
+        $display("input_a = %D\n input_b = %D\n equal = %D\n not_equal = %D\n greater = %D\n less = %D\n u_gretaer = %D\n u_less = %D\n", 
             input_a,
             input_b,
             flag_equal,
@@ -73,7 +73,7 @@ module flagger_test #(
 
         input_a = 64'h0000_0000_0000_0005;
         input_b = 64'h0000_0000_0000_0001;
-        $monitor("input_a = %H\n input_b = %H\n equal = %H\n not_equal = %H\n greater = %H\n less = %H\n u_gretaer = %H\n u_less = %H\n", 
+        $display("input_a = %D\n input_b = %D\n equal = %D\n not_equal = %D\n greater = %D\n less = %D\n u_gretaer = %D\n u_less = %D\n", 
             input_a,
             input_b,
             flag_equal,
@@ -85,9 +85,9 @@ module flagger_test #(
         );
         #100;
 
-        input_a = 64'h1000_0000_0000_0005;
-        input_b = 64'h1000_0000_0000_0001;
-        $monitor("input_a = %H\n input_b = %H\n equal = %H\n not_equal = %H\n greater = %H\n less = %H\n u_gretaer = %H\n u_less = %H\n", 
+        input_a = -1;
+        input_b = 5;
+        $display("input_a = %D\n input_b = %D\n equal = %D\n not_equal = %D\n greater = %D\n less = %D\n u_gretaer = %D\n u_less = %D\n", 
             input_a,
             input_b,
             flag_equal,
@@ -99,9 +99,10 @@ module flagger_test #(
         );
         #100;
 
-        input_a = 64'h0000_0000_0000_0002;
-        input_b = 64'h1000_0000_0000_0002;
-        $monitor("input_a = %H\n input_b = %H\n equal = %H\n not_equal = %H\n greater = %H\n less = %H\n u_gretaer = %H\n u_less = %H\n b = %B\n", 
+        input_a = 5;
+        input_b = -1;
+        #1;
+        $display("input_a = %D\n input_b = %D\n equal = %D\n not_equal = %D\n greater = %D\n less = %D\n u_gretaer = %D\n u_less = %D\n b = %B\n", 
             input_a,
             input_b,
             flag_equal,
