@@ -44,24 +44,45 @@ module alu #(
         end
     end
 
-    /* verifica se a > b */
+    /* verifica se a > b unsigned */
     always @(*) begin
         if(input_a > input_b) begin
-            alu_flag_greater = 1;
-            alu_flag_less = 0;
+            alu_flag_u_greater = 1;
+            alu_flag_u_less = 0;
         end else begin
-            alu_flag_greater = 0;
+            alu_flag_u_greater = 0;
         end
     end
 
-    /* verifica se a < b */
+    /* verifica se a < b unsigned */
     always @(*) begin
         if(input_a < input_b) begin
-            alu_flag_greater = 0;
-            alu_flag_less = 1;
+            alu_flag_u_greater = 0;
+            alu_flag_u_less = 1;
         end else begin
-            alu_flag_less = 0;
+            alu_flag_u_less = 0;
         end
     end
+
+    /* verifica as desigualdades com complemento de dois */
+    always @(*) begin
+        if(input_a[WORDSIZE-1] == 1 and input_b[WORDSIZE-1] == 1) begin
+            alu_flag_greater = ~ alu_flag_u_greater;
+            alu_flag_less = ~alu_flag_u_less;
+        end
+        else if(input_a[WORDSIZE-1] == 1) begin
+            alu_flag_greater = 0
+            alu_flag_less = 1;
+        end
+        else if(input_b[WORDSIZE-1] == 1) begin
+            alu_flag_greater = 1
+            alu_flag_less = 0;
+        end
+        else begin
+            alu_flag_greater = alu_flag_u_greater;
+            alu_flag_less = alu_flag_u_less;
+        end
+    end
+
 
 endmodule
