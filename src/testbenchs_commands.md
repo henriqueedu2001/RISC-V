@@ -45,7 +45,7 @@ vvp dm
 
 ## PROGRAM COUNTER
 ```
-iverilog -o pc ../src/modules/processor/program_couter.v ../src/testbenchs/tests/processor/program_counter_test.v 
+iverilog -o pc ../src/modules/processor/program_counter.v ../src/testbenchs/tests/processor/program_counter_test.v 
 ```
 ```
 vvp pc
@@ -69,7 +69,7 @@ vvp cu
 
 ## ALU
 ```
-iverilog -o alu ../src/modules/processor/alu.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/modules/utility/opposite.v ../src/testbenchs/tests/processor/alu_test.v
+iverilog -o alu ../src/modules/processor/alu/alu.v ../src/modules/processor/alu/INT_AR.v ../src/modules/processor/alu/FLT_AR.v ../src/modules/processor/alu/BITWISE.v ../src/modules/processor/alu/BITSHIFT.v ../src/testbenchs/tests/processor/alu_test.v 
 ```
 ```
 vvp alu
