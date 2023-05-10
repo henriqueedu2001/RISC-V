@@ -1,5 +1,5 @@
 /* unidade lógico aritmética */
-module alu #(
+module flagger #(
     parameter WORDSIZE = 64             /* define o tamanho da palavra */
 ) (
     input wire [WORDSIZE-1:0] input_a,  /* primeiro valor da operação */  
@@ -66,16 +66,16 @@ module alu #(
 
     /* verifica as desigualdades com complemento de dois */
     always @(*) begin
-        if(input_a[WORDSIZE-1] == 1 and input_b[WORDSIZE-1] == 1) begin
+        if(input_a[WORDSIZE-1] == 1 && input_b[WORDSIZE-1] == 1) begin
             alu_flag_greater = ~ alu_flag_u_greater;
             alu_flag_less = ~alu_flag_u_less;
         end
         else if(input_a[WORDSIZE-1] == 1) begin
-            alu_flag_greater = 0
+            alu_flag_greater = 0;
             alu_flag_less = 1;
         end
         else if(input_b[WORDSIZE-1] == 1) begin
-            alu_flag_greater = 1
+            alu_flag_greater = 1;
             alu_flag_less = 0;
         end
         else begin
