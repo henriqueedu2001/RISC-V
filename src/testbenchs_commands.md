@@ -137,3 +137,10 @@ iverilog -o n_bits_register ../src/modules/utility/n_bits_register.v ../src/modu
 ```
 vvp n_bits_register
 ```
+
+## FLAGGER
+```
+iverilog -o flagger src/modules/processor/alu/flagger.v src/testbenchs/tests/processor/flagger_test.v
+```
+```
+vvp flagger
