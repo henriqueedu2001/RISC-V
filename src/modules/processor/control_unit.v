@@ -3,7 +3,7 @@ module control_unit #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
     parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
 ) (
-    input wire [6:0] opcode,                       /* opcode */
+    input wire [6:0] op_code,                       /* opcode */
     output reg [] alu_op,
     output reg [4:0] uc_rf_addr_a,                 /* seleção de addr_a no register file */
     output reg [4:0] uc_rf_addr_b,                 /* seleção de addr_b no register file */
@@ -19,21 +19,21 @@ module control_unit #(
 );
     /* alguns possíveis opcodes */
     localparam 
-        op_code_load_word = 7'b0000011,
-        op_code_store_word = 7'b0100011,
-        op_code_add = 7'b0110011,
-        op_code_sub = 7'b0110011,
-        op_code_addi = 7'b0010011,
-        op_code_subi = 7'b0010011;
+        op_code_R = 7'b0110011,
+        op_code_I = 7'b0010011,
+        op_code_I_load = 7'b0000011,
+        op_code_S = 7'b0100011,
+        op_code_B = 7'b1100011,
+        op_code_J = 7'b1101111,
+        op_code_J_I = 7'b1100111,
+        op_code_U = 7'b0110111,
+        op_code_U_PC = 7'b0010111, 
+        op_code_E = 7'b1110011 
     
     /* alguns possíveis funct7 */
     localparam 
         funct7_add = 7'b0000000,
         funct7_sub = 7'b0100000;
-
-    /* obtenção do op_code da instrução */
-    wire [6:0] op_code;
-    assign op_code = instruction[6:0];
 
     /* instruções tipo I */
     wire [11:0] i_type_imm;

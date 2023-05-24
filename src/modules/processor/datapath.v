@@ -8,7 +8,7 @@ module Datapath_Unit #(
  output[3:0] opcode
 );
  reg  [WORDSIZE-1:0] pc_current;
- wire [WORDSIZE-1:0] pc_next,pc2;
+ wire [WORDSIZE-1:0] pc_next;
  wire [INSTRUCTION_SIZE-1:0] instr;
 
  // Register File
@@ -42,19 +42,16 @@ module Datapath_Unit #(
    pc_current <= pc_next;
  end
 
- assign pc2 = pc_current + 16'd2;
-
  // instruction memory
  instruction_memory im(.pc(pc_current),.instruction(instr));
 
- // jump shift left 2
- assign jump_shift = {instr[11:0],1'b0};
 
  // multiplexer regdest
- assign rf_write_addr = (reg_dst==1'b1) ? instr[5:3] :instr[8:6];
+ assign rf_write_addr = (reg_dst==1'b1) ? instr[11:7] :instr[24:20];
+ 
  // register file
- assign rf_addr_a = instr[11:9];
- assign rf_addr_b = instr[8:6];
+ assign rf_addr_a = instr[19:15];
+ assign rf_addr_b = instr[24:20];
 
  // GENERAL PURPOSE REGISTERs
  register_file reg_file
