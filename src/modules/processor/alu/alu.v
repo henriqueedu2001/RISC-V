@@ -43,6 +43,15 @@ module alu #(
         op_bitshift_l_left_shift = 6'b11_0011; /* (BITSHIFT) a << b (lógico) */
     
     /* saídas de cada módulo */
+   
+    // wire alu_flag_equal; /* saída de flag igualdade */
+    // wire alu_flag_not_equal; /* saída de flag não igualdade */
+    // wire alu_flag_greater; /* saída de flag maior */
+    // wire alu_flag_less; /* saída de flag menor */
+    // wire alu_flag_u_equal; /* saída de flag igualdade (sem sinal) */
+    // wire alu_flag_u_greater; /* saída de flag maior (sem sinal) */
+    // wire alu_flag_u_less; /* saída de flag menor (sem sinal) */
+
     wire [WORDSIZE-1:0] alu_int_ar_out; /* saída de INT_AR */
     wire [WORDSIZE-1:0] alu_flt_ar_out; /* saída de FLT_AR */
     wire [WORDSIZE-1:0] alu_bitwise_out; /* saída de BITWISE */
@@ -82,6 +91,19 @@ module alu #(
         .input_b(input_b),
         .operation(operation),
         .out(alu_int_ar_out)
+    );
+
+    /* instanciação da FLAGGER */
+    flagger alu_flagger_unit(
+        .input_a(input_a),
+        .input_b(input_b),
+        .flag_equal(flag_equal),
+        .flag_not_equal(flag_not_equal),
+        .flag_greater(flag_greater),
+        .flag_less(flag_less),
+        .flag_u_equal(flag_u_equal),
+        .flag_u_greater(flag_u_greater),
+        .flag_u_less(flag_u_less)
     );
 
     always @(*) begin

@@ -4,7 +4,7 @@ module flagger #(
 ) (
     input wire [WORDSIZE-1:0] input_a,  /* primeiro valor da operação */  
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
-    output wire flag_overflow,          /* sinal de detecção de overflow */
+//  output wire flag_overflow,          /* sinal de detecção de overflow */
     output wire flag_equal,             /* flag igualdade */
     output wire flag_not_equal,         /* flag não igualdade */
     output wire flag_greater,           /* flag maior */

@@ -66,3 +66,5 @@ module instruction_memory #(
     assign instruction = selected_instruction;
 
 endmodule
+
+// $readmemb("instruction_memory_archive.txt", instructions, 0, 3);
