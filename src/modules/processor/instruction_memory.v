@@ -45,7 +45,7 @@ module instruction_memory #(
             7'b0110011           /* opcode */
         };
 
-    reg [MEMORY_SIZE-1:0] [INSTRUCTION_SIZE-1:0] instructions; /* banco de instruções */
+    reg [MEMORY_SIZE-1:0] instructions [INSTRUCTION_SIZE-1:0] ; /* banco de instruções */
     reg [INSTRUCTION_SIZE-1:0] selected_instruction;           /* instrução selecionada */
 
     /* conjunto de instruções iniciais */
@@ -54,8 +54,6 @@ module instruction_memory #(
         instructions[1] = instruction_02; /* instrução de mem[1] */
         instructions[2] = instruction_03; /* instrução de mem[2] */
         instructions[3] = instruction_04; /* instrução de mem[3] */
-        instructions[4] = instruction_05; /* instrução de mem[4] */
-        instructions[5] = instruction_06; /* instrução de mem[5] */
         /* ... */
     end
 
