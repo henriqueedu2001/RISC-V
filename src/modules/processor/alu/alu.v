@@ -33,7 +33,7 @@ module alu #(
         /* operações bitwise (BITWISE) */
         op_bitwise_and = 6'b10_0000, /* (BITWISE) a & b */
         op_bitwise_or =  6'b10_0001, /* (BITWISE) a | b */
-        op_bitwise_not = 6'b10_0010, /* (BITWISE) ~a */
+        op_bitwise_not = 6'b1s0_0010, /* (BITWISE) ~a */
         op_bitwise_xor = 6'b10_0011, /* (BITWISE) a ^ b */
 
         /* operações bitshift (BITSHIFT) */
