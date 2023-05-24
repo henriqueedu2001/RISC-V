@@ -50,11 +50,7 @@ module instruction_memory #(
 
     /* conjunto de instruções iniciais */
     initial begin
-        instructions[0] = instruction_01; /* instrução de mem[0] */
-        instructions[1] = instruction_02; /* instrução de mem[1] */
-        instructions[2] = instruction_03; /* instrução de mem[2] */
-        instructions[3] = instruction_04; /* instrução de mem[3] */
-        /* ... */
+        $readmemb("./instruction_memory_archive.txt", instructions, 0, 3);
     end
 
     /* selecionar instrução do endereço correto */
