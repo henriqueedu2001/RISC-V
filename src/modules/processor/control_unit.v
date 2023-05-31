@@ -10,7 +10,7 @@ module control_unit #(
     output reg finished
 
 );
-    /* Opcodes e tipos*/
+    /* opcodes e tipos*/
     localparam 
         opcode_R = 7'b0110011,
         opcode_I = 7'b0010011,
@@ -53,7 +53,7 @@ end
 
             state0: begin 
                 /* Reading data from register file*/
-                $display("Reading data from register file");
+                // $display("Reading data from register file");
                 finished <= 0;
                 rf_write_en <= 0;
                 next_state <= state1;
@@ -64,7 +64,7 @@ end
 
             state1: begin
                 /* Realizing Alu operation*/
-                $display("Realizing Alu operation");
+                // $display("Realizing Alu operation");
                 rf_write_en <= 0;
                 finished <= 0;
                 next_state <= state2;
@@ -72,13 +72,13 @@ end
 
             state2: begin
                 /* Writing data to register file*/
-                $display("Writing data to register file");
+                // $display("Writing data to register file");
                 rf_write_en <= 1;
                 next_state <= state0;
             end
             state3: begin
                 /* Finishing operation*/
-                $display("Finishing operation");
+                // $display("Finishing operation");
                 finished <= 1;
                 rf_write_en <= 0;
                 next_state <= state0;  

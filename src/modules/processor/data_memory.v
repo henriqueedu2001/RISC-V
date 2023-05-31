@@ -13,6 +13,10 @@ module data_memory #(
     /* banco de  */
     reg [WORDSIZE:0] memory [SIZE-1:0];
     
+    initial begin
+        memory[0] = 64'd2;
+        memory[1] = 64'd3;
+    end
     /* ativação em borda de subida */
     always @(posedge clk) begin
         /* escrita de dados na memória */

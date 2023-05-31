@@ -35,5 +35,8 @@ control_unit control_unit_processor(
     .opcode(opcode)
 );
 
+// always @(result) begin
+//     $display("result ahhhhh = %D\n\n", result);
+// end
 
 endmodule

@@ -13,7 +13,8 @@ module instruction_memory #(
 
     /* conjunto de instruções iniciais */
     initial begin
-        instructions[0] = 32'b0000000_00010_00001_000_00011_0110011;
+        // instruction[0] = 32'b0000000_00000_00000_000_00000_0110011;
+        instructions[0] = 32'b0100000_00010_00001_000_00011_0110011;
     end
 
     /* selecionar instrução do endereço correto */
@@ -25,5 +26,3 @@ module instruction_memory #(
     assign instruction = selected_instruction;
 
 endmodule
-
-// $readmemb("instruction_memory_archive.txt", instructions, 0, 3);

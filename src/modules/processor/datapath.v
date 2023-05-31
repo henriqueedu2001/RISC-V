@@ -3,7 +3,6 @@ module datapath #(
     parameter INSTRUCTION_SIZE = 32   /* tamanho da instrução (32 para o RISC-V) */
 )
 (
-
  input finished,
  input clk,
  input rf_write_en,
@@ -57,7 +56,7 @@ module datapath #(
  begin 
   case(finished)
    1'b0: ;
-   1'b1: pc_current <= pc_next;
+   1'b1: pc_current <= pc_current + 64'd1;
   endcase
    
  end
@@ -76,7 +75,7 @@ module datapath #(
  assign rf_write_addr = instr[11:7];
 
  assign dm_data_input = rf_write_data;
- assign result = dm_data_input;
+ assign result = rf_write_data;
  
  // Instanciacao do Register File
  register_file reg_file

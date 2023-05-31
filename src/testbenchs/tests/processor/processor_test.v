@@ -13,13 +13,7 @@ module processor_test    #(
 
     );
     initial begin
-    #500;
-    $monitor("result = %D\n\n", result);
-    #500;
-    $monitor("result = %D\n\n", result);
-    #500;
-    $monitor("result = %D\n\n", result);
-    #500;
+    #5000;
     $monitor("result = %D\n\n", result);
     end
 endmodule

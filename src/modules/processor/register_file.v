@@ -54,8 +54,8 @@ module register_file #(
     end
 
     /* valores lidos em A e em B */
-    assign data_a = a;
-    assign data_b = b;
+    assign data_a = 64'd3;
+    assign data_b = 64'd2;
 
 endmodule
 

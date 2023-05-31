@@ -109,12 +109,18 @@ module alu #(
 
     always @(*) begin
         case (alu_unit_sel)
-            2'b00: alu_result = alu_int_ar_out;
+            
+            2'b00: begin
+                $display("input_a: %b", input_a);
+                $display("input_b: %b", input_b);
+                alu_result = alu_int_ar_out;
+            end
             2'b01: alu_result = alu_flt_ar_out;
             2'b10: alu_result = alu_bitwise_out;
             2'b11: alu_result = alu_bitshift_out;
         endcase
     end
+
     assign result = alu_result;
 
 endmodule
