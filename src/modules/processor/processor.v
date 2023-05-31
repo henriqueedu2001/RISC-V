@@ -11,6 +11,8 @@ wire rf_write_en;
 wire dm_write_en;
 wire [6:0] opcode;
 wire clk;
+wire fetch;
+wire decode;
 
 clock_gen clock_gen_unit(
     .clock(clk)
@@ -22,6 +24,8 @@ datapath dapath_unit(
     .finished(finished),
     .rf_write_en(rf_write_en),
     .dm_write_en(dm_write_en),
+    .fetch(fetch),
+    .decode(decode),
     .opcode(opcode),
     .result(result)
 );
@@ -32,7 +36,9 @@ control_unit control_unit_processor(
     .finished(finished),
     .rf_write_en(rf_write_en),
     .dm_write_en(dm_write_en),
-    .opcode(opcode)
+    .opcode(opcode),
+    .fetch(fetch),
+    .decode(decode)
 );
 
 // always @(result) begin

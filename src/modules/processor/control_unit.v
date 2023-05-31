@@ -7,8 +7,9 @@ module control_unit #(
     input wire clk,
     output reg rf_write_en,
     output reg dm_write_en,
-    output reg finished
-
+    output reg finished,
+    output reg fetch,
+    output reg decode
 );
     /* opcodes e tipos*/
     localparam 
@@ -26,71 +27,116 @@ module control_unit #(
     /* Parametros de estados */
     reg [2:0] state;
     reg [2:0] next_state;
+    
     localparam
-    state0 = 3'b000,
-    state1 = 3'b001,
-    state2 = 3'b010,
-    state3 = 3'b011,
-    state4 = 3'b100,
-    state5 = 3'b101,
-    state6 = 3'b110,
-    state7 = 3'b111;
+    state_fetch = 2'b00,
+    state_decode = 2'b01,
+    state_execute = 2'b10,
+    state_write_back = 2'b11;
 
 always @(negedge clk) begin
     // $display("State: %b", state);
     // $display("next_state: %b", next_state);
     // $display("Opcode: %b", opcode);
     state <= next_state;
-
-
 end
  
-    /* sinais separados por tipos */
-    always @(posedge clk) begin
-        case (opcode)
-        opcode_R: begin
-            case (state)
+   // maquina de estados da UC
+   always @(posedge clk) begin
+    case(state)
+    state_fetch:begin
+        fetch <= 1;
+        decode <= 0;
+        rf_write_en <= 0;
+        dm_write_en <= 0; 
+        next_state <= state_decode;
+    end
+    
+    state_decode: begin
+        fetch <= 0;
+        decode <= 1;
+        rf_write_en <= 0;
+        dm_write_en <= 0; 
+        next_state <= state_execute;
+        
+    end
 
-            state0: begin 
-                /* Reading data from register file*/
-                // $display("Reading data from register file");
-                finished <= 0;
-                rf_write_en <= 0;
-                next_state <= state1;
-                // $display("State: %b", state); 
-                // $display("Opcode: %b", opcode);
-
-            end
-
-            state1: begin
-                /* Realizing Alu operation*/
-                // $display("Realizing Alu operation");
-                rf_write_en <= 0;
-                finished <= 0;
-                next_state <= state2;
-            end
-
-            state2: begin
-                /* Writing data to register file*/
-                // $display("Writing data to register file");
-                rf_write_en <= 1;
-                next_state <= state0;
-            end
-            state3: begin
-                /* Finishing operation*/
-                // $display("Finishing operation");
-                finished <= 1;
-                rf_write_en <= 0;
-                next_state <= state0;  
-            end
-
-            default: begin
-                next_state <= state0;
-            end
-            endcase
-
+    state_execute: begin 
+        case(opcode) 
+        opcode_R: begin    
+            rf_write_en <= 0;
+            dm_write_en <= 0;  
+            next_state <= state_write_back;
         end
+        
+        default: begin
+            next_state <= state_write_back;
+        end
+               
         endcase
     end
+
+    state_write_back: begin 
+        rf_write_en <= 1;
+        dm_write_en <= 1;
+        next_state <= state_fetch;
+
+    end 
+
+    default: begin
+        next_state <= state_fetch;
+    end
+
+    endcase
+   end
+   
+    
+    /* sinais separados por tipos */
+    // always @(posedge clk) begin
+    //     case (opcode)
+    //     opcode_R: begin
+    //         case (state)
+
+    //         state0: begin 
+    //             /* Reading data from register file*/
+    //             // $display("Reading data from register file");
+    //             finished <= 0;
+    //             rf_write_en <= 0;
+    //             next_state <= state1;
+    //             // $display("State: %b", state); 
+    //             // $display("Opcode: %b", opcode);
+
+    //         end
+
+    //         state1: begin
+    //             /* Realizing Alu operation*/
+    //             // $display("Realizing Alu operation");
+    //             rf_write_en <= 0;
+    //             finished <= 0;
+    //             next_state <= state2;
+    //         end
+
+    //         state2: begin
+    //             /* Writing data to register file*/
+    //             // $display("Writing data to register file");
+    //             rf_write_en <= 1;
+    //             next_state <= state0;
+    //         end
+    //         state3: begin
+    //             /* Finishing operation*/
+    //             // $display("Finishing operation");
+    //             finished <= 1;
+    //             rf_write_en <= 0;
+    //             next_state <= state0;  
+    //         end
+
+    //         default: begin
+    //             next_state <= state0;
+    //         end
+    //         endcase
+
+    //     end
+    //     endcase
+    // end
 
 endmodule

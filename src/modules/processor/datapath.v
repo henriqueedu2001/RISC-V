@@ -7,6 +7,8 @@ module datapath #(
  input clk,
  input rf_write_en,
  input dm_write_en,
+ input wire fetch, 
+ input wire decode,
  output[6:0] opcode,
  output[WORDSIZE-1:0] result
 );
