@@ -4,16 +4,18 @@ module alu_int_ar #(
 ) (
     input wire [WORDSIZE-1:0] input_a,  /* primeiro valor da operação */  
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
-    input wire [5:0] operation,         /* operação a ser realizada */
-    output wire [WORDSIZE-1:0] out,      /* resultado */
+    input wire [9:0] operation,         /* operação a ser realizada */
+    output wire [WORDSIZE-1:0] out,      /* outado */
     output wire overflow
 );
+        
 
-    /* todas as operações da ALU */
+
+    /* todas as operações da ALU */ 
     localparam
         /* operações aritméticas sobre inteiros (INT_AR) */
-        op_int_ar_add = 6'b00_0000, /* (INT_AR) a + b */
-        op_int_ar_sub = 6'b00_0001, /* (INT_AR) a - b */
+        op_int_ar_add = 10'b000_0000000, /* (INT_AR) a + b */
+        op_int_ar_sub = 10'b000_0100000, /* (INT_AR) a - b */ 
         op_int_ar_neg = 6'b00_0010, /* (INT_AR) ~a */
         op_int_ar_inc = 6'b00_0011, /* (INT_AR) a + 1 */
         op_int_ar_dec = 6'b00_0100; /* (INT_AR) a - 1 */
@@ -22,11 +24,13 @@ module alu_int_ar #(
         case (operation)
             /* operação soma */
             op_int_ar_add: begin
+                // $display("op_int_ar_add");
                 result = input_a + input_b;
             end
 
             /* operação subtração */
             op_int_ar_sub: begin
+                // $display("op_int_ar_sub");
                 result = input_a - input_b;
             end
 
@@ -50,5 +54,7 @@ module alu_int_ar #(
 
     reg [WORDSIZE-1:0] result;
     assign out = result;
+
+
 
 endmodule

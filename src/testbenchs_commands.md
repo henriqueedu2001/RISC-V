@@ -18,13 +18,14 @@ E você verá o resultado do testbench.<br>
 
 Como os comandos ficam muito longos para o terminal, escrevi todos aqui neste arquivo. Basta copiar e colar no terminal e teclar enter.
 
-## CPU
+## PROCESSOR
 ```
-iverilog -o cpu ../src/modules/processor/cpu.v ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v ../src/modules/utility/one_bit_register.v ../src/modules/processor/data_memory.v ../src/modules/processor/alu.v ../src/modules/utility/opposite.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/modules/utility/mux_2x1.v ../src/modules/utility/general_mux.v ../src/modules/processor/control_unit.v ../src/modules/processor/instruction_memory.v ../src/modules/processor/program_couter.v ../src/testbenchs/tests/processor/cpu_test.v 
+iverilog -o processor ../src/modules/processor/processor.v ../src/modules/processor/register_file.v ../src/modules/utility/n_bits_register.v ../src/modules/utility/one_bit_register.v ../src/modules/processor/data_memory.v ../src/modules/processor/alu/alu.v ../src/modules/utility/opposite.v ../src/modules/utility/full_adder.v ../src/modules/utility/half_adder.v ../src/modules/utility/mux_2x1.v ../src/modules/utility/general_mux.v ../src/modules/processor/control_unit.v ../src/modules/processor/instruction_memory.v ../src/modules/processor/clock_gen.v ../src/modules/processor/datapath.v ../src/modules/processor/alu/flagger.v ../src/modules/processor/alu/INT_AR.v ../src/testbenchs/tests/processor/processor_test.v
+ 
 
 ```
 ```
-vvp rf
+vvp processor
 ```
 
 ## REGISTER FILE
@@ -69,7 +70,7 @@ vvp cu
 
 ## ALU
 ```
-iverilog -o alu ../src/modules/processor/alu/alu.v ../src/modules/processor/alu/INT_AR.v ../src/modules/processor/alu/FLT_AR.v ../src/modules/processor/alu/BITWISE.v ../src/modules/processor/alu/BITSHIFT.v ../src/testbenchs/tests/processor/alu_test.v 
+iverilog -o alu ../src/modules/processor/alu/alu.v ../src/modules/processor/alu/INT_AR.v ../src/modules/processor/alu/FLT_AR.v ../src/modules/processor/alu/BITWISE.v ../src/modules/processor/alu/BITSHIFT.v  ../src/modules/processor/alu/flagger.v ../src/testbenchs/tests/processor/alu_test.v 
 ```
 ```
 vvp alu
@@ -144,3 +145,12 @@ iverilog -o flagger src/modules/processor/alu/flagger.v src/testbenchs/tests/pro
 ```
 ```
 vvp flagger
+```
+## INT_AR
+```
+iverilog -o int ../src/modules/processor/alu/INT_AR.v ../src/testbenchs/tests/processor/INT_AR_test.v
+
+```
+```
+vvp flagger
+```

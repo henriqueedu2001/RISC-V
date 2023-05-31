@@ -4,7 +4,8 @@ module alu #(
 ) (
     input wire [WORDSIZE-1:0] input_a,  /* primeiro valor da operação */  
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
-    input wire [5:0] operation,         /* operação a ser realizada */
+    input wire [2:0] funct3,         /* operação funct3 a ser realizada */
+    input wire [6:0] funct7,        /* operação funct7 a ser realizada */
     output wire [WORDSIZE-1:0] result,  /* resultado */
     output wire flag_overflow,          /* sinal de detecção de overflow */
     output wire flag_equal,             /* flag igualdade */
@@ -16,6 +17,7 @@ module alu #(
     output wire flag_u_less             /* flag menor (sem sinal) */
 );
 
+    wire alu_unit_sel = 2'b00;
     /* todas as operações da ALU */
     localparam
         /* operações aritméticas sobre inteiros (INT_AR) */
@@ -58,40 +60,39 @@ module alu #(
     wire [WORDSIZE-1:0] alu_bitshift_out; /* saída de BITSHIFT */
 
     /* saída final */
-    wire [1:0] alu_unit_sel = operation[5:4];
     reg [WORDSIZE-1:0] alu_result;
 
     /* instanciação da INT_AR */
     alu_int_ar alu_int_ar_unit(
         .input_a(input_a),
         .input_b(input_b),
-        .operation(operation),
+        .operation({funct3,funct7}),
         .out(alu_int_ar_out)
     );
 
-    /* instanciação da FLT_AR */
-    alu_flt_ar alu_flt_ar_unit(
-        .input_a(input_a),
-        .input_b(input_b),
-        .operation(operation),
-        .out(alu_int_ar_out)
-    );
+    // /* instanciação da FLT_AR */
+    // alu_flt_ar alu_flt_ar_unit(
+    //     .input_a(input_a),
+    //     .input_b(input_b),
+    //     .operation(operation),
+    //     .out(alu_int_ar_out)
+    // );
 
-    /* instanciação da BITWISE */
-    alu_bitwise alu_bitwise_unit(
-        .input_a(input_a),
-        .input_b(input_b),
-        .operation(operation),
-        .out(alu_int_ar_out)
-    );
+    // /* instanciação da BITWISE */
+    // alu_bitwise alu_bitwise_unit(
+    //     .input_a(input_a),
+    //     .input_b(input_b),
+    //     .operation(operation),
+    //     .out(alu_int_ar_out)
+    // );
 
-    /* instanciação da BITSHIFT */
-    alu_bitshift alu_bitshift_unit(
-        .input_a(input_a),
-        .input_b(input_b),
-        .operation(operation),
-        .out(alu_int_ar_out)
-    );
+    // /* instanciação da BITSHIFT */
+    // alu_bitshift alu_bitshift_unit(
+    //     .input_a(input_a),
+    //     .input_b(input_b),
+    //     .operation(operation),
+    //     .out(alu_int_ar_out)
+    // );
 
     /* instanciação da FLAGGER */
     flagger alu_flagger_unit(
@@ -114,7 +115,6 @@ module alu #(
             2'b11: alu_result = alu_bitshift_out;
         endcase
     end
-
-    assign result = alu_int_ar_out;
+    assign result = alu_result;
 
 endmodule
