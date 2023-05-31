@@ -57,8 +57,10 @@ module datapath #(
  always @(finished)
  begin 
   case(finished)
-   1'b0: ;
-   1'b1: pc_current <= pc_current + 64'd1;
+   1'b0: $display("instr = %B", instr);
+   1'b1: begin 
+    pc_current <= pc_current + 64'd1;
+   end
   endcase
    
  end
