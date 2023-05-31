@@ -25,6 +25,7 @@ module control_unit #(
     
     /* Parametros de estados */
     reg [2:0] state;
+    reg [2:0] next_state;
     localparam
     state0 = 3'b000,
     state1 = 3'b001,
@@ -35,6 +36,14 @@ module control_unit #(
     state6 = 3'b110,
     state7 = 3'b111;
 
+always @(negedge clk) begin
+    // $display("State: %b", state);
+    // $display("next_state: %b", next_state);
+    // $display("Opcode: %b", opcode);
+    state <= next_state;
+
+
+end
  
     /* sinais separados por tipos */
     always @(posedge clk) begin
@@ -44,32 +53,39 @@ module control_unit #(
 
             state0: begin 
                 /* Reading data from register file*/
+                $display("Reading data from register file");
                 finished <= 0;
                 rf_write_en <= 0;
-                state <= state1;  
+                next_state <= state1;
+                // $display("State: %b", state); 
+                // $display("Opcode: %b", opcode);
+
             end
 
             state1: begin
                 /* Realizing Alu operation*/
+                $display("Realizing Alu operation");
                 rf_write_en <= 0;
                 finished <= 0;
-                state <= state2;
+                next_state <= state2;
             end
 
             state2: begin
                 /* Writing data to register file*/
+                $display("Writing data to register file");
                 rf_write_en <= 1;
-                state <= state0;
+                next_state <= state0;
             end
             state3: begin
                 /* Finishing operation*/
+                $display("Finishing operation");
                 finished <= 1;
                 rf_write_en <= 0;
-                state <= state0;  
+                next_state <= state0;  
             end
 
             default: begin
-                state <= state0;
+                next_state <= state0;
             end
             endcase
 

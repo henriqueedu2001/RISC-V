@@ -8,7 +8,8 @@ module datapath #(
  input clk,
  input rf_write_en,
  input dm_write_en,
- output[6:0] opcode
+ output[6:0] opcode,
+ output[WORDSIZE-1:0] result
 );
 
  reg  [WORDSIZE-1:0] pc_current;
@@ -54,7 +55,11 @@ module datapath #(
 // Atualizando o PC
  always @(finished)
  begin 
-   pc_current <= pc_next;
+  case(finished)
+   1'b0: ;
+   1'b1: pc_current <= pc_next;
+  endcase
+   
  end
 
  // instruction memory
@@ -71,6 +76,7 @@ module datapath #(
  assign rf_write_addr = instr[11:7];
 
  assign dm_data_input = rf_write_data;
+ assign result = dm_data_input;
  
  // Instanciacao do Register File
  register_file reg_file

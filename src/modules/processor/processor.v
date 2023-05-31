@@ -3,7 +3,7 @@ module processor #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
     parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
 ) (
-
+    output [WORDSIZE-1:0] result
 );
 
 wire finished;
@@ -11,7 +11,6 @@ wire rf_write_en;
 wire dm_write_en;
 wire [6:0] opcode;
 wire clk;
-wire [WORDSIZE-1:0] result;
 
 clock_gen clock_gen_unit(
     .clock(clk)
