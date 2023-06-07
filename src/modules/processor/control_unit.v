@@ -51,6 +51,7 @@ end
         dm_write_en <= 0; 
         finished <= 0;
         next_state <= state_decode;
+        finished <= 0;
     end
     
     state_decode: begin
@@ -60,6 +61,7 @@ end
         dm_write_en <= 0; 
         finished <= 0;
         next_state <= state_execute;
+        finished <= 0;
         
     end
 
