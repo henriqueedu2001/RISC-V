@@ -49,6 +49,7 @@ end
         decode <= 0;
         rf_write_en <= 0;
         dm_write_en <= 0; 
+        finished <= 0;
         next_state <= state_decode;
     end
     
@@ -57,6 +58,7 @@ end
         decode <= 1;
         rf_write_en <= 0;
         dm_write_en <= 0; 
+        finished <= 0;
         next_state <= state_execute;
         
     end
@@ -67,10 +69,12 @@ end
             rf_write_en <= 0;
             dm_write_en <= 0;  
             next_state <= state_write_back;
+            finished <= 0;
         end
         
         default: begin
             next_state <= state_write_back;
+            finished <= 0; 
         end
                
         endcase
@@ -80,11 +84,13 @@ end
         rf_write_en <= 1;
         dm_write_en <= 1;
         next_state <= state_fetch;
+        finished <= 1;
 
     end 
 
     default: begin
         next_state <= state_fetch;
+        finished <= 0;
     end
 
     endcase

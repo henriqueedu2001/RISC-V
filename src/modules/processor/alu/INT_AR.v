@@ -9,8 +9,6 @@ module alu_int_ar #(
     output wire overflow
 );
         
-
-
     /* todas as operações da ALU */ 
     localparam
         /* operações aritméticas sobre inteiros (INT_AR) */
@@ -18,7 +16,9 @@ module alu_int_ar #(
         op_int_ar_sub = 10'b000_0100000, /* (INT_AR) a - b */ 
         op_int_ar_neg = 6'b00_0010, /* (INT_AR) ~a */
         op_int_ar_inc = 6'b00_0011, /* (INT_AR) a + 1 */
-        op_int_ar_dec = 6'b00_0100; /* (INT_AR) a - 1 */
+        op_int_ar_dec = 6'b00_0100, /* (INT_AR) a - 1 */
+        op_int_ar_and = 6'b00_0011, /* (INT_AR) a and b */
+        op_int_ar_or = 6'b00_0100; /* (INT_AR) a or b */
     
     always @(*) begin
         case (operation)
@@ -49,12 +49,20 @@ module alu_int_ar #(
                 result = input_a - 1;
             end
 
+            /* operação AND */
+            op_int_ar_and: begin 
+                result = (input_a && input_b); 
+            end
+
+            /* operação OR */
+            op_int_ar_or: begin 
+                result = input_a || input_b; 
+            end 
+
         endcase
     end
 
     reg [WORDSIZE-1:0] result;
     assign out = result;
-
-
 
 endmodule
