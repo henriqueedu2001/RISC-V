@@ -3,13 +3,13 @@ module control_unit #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
     parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
 ) (
+    input wire clk, rst_n,
     input wire [6:0] opcode,                       /* opcode */
-    input wire clk,
-    output reg rf_write_en,
-    output reg dm_write_en,
-    output reg finished,
-    output reg fetch,
-    output reg decode
+    output reg d_mem_we,
+    output reg rf_we,
+    input [3:0] alu_flags,
+    output [3:0] alu_cmd,
+    output alu_src, pc_src, rf_src
 );
     /* opcodes e tipos*/
     localparam 
@@ -34,117 +34,105 @@ module control_unit #(
     state_execute = 2'b10,
     state_write_back = 2'b11;
 
-always @(negedge clk) begin
-    // $display("State: %b", state);
-    // $display("next_state: %b", next_state);
-    // $display("Opcode: %b", opcode);
-    state <= next_state;
+always @(posedge clk, negedge rst_n) begin
+    if (!rst_n) begin
+        state <= state_fetch;
+    end
+    else begin
+        state<= next_state;
+    end
 end
  
    // maquina de estados da UC
-   always @(posedge clk) begin
+   always @(state) begin
     case(state)
     state_fetch:begin
-        fetch <= 1;
-        decode <= 0;
-        rf_write_en <= 0;
-        dm_write_en <= 0; 
-        finished <= 0;
+        rf_we <= 0;
+        d_mem_we <= 0; 
         next_state <= state_decode;
-        finished <= 0;
     end
     
     state_decode: begin
-        fetch <= 0;
-        decode <= 1;
-        rf_write_en <= 0;
-        dm_write_en <= 0; 
-        finished <= 0;
+        rf_we <= 0;
+        d_mem_we <= 0; 
         next_state <= state_execute;
-        finished <= 0;
-        
     end
 
     state_execute: begin 
         case(opcode) 
         opcode_R: begin    
-            rf_write_en <= 0;
-            dm_write_en <= 0;  
+            alu_cmd <= 4'b0000;
+            rf_we <= 0;
+            d_mem_we <= 0; 
+            al_src <= 0; 
+            pc_src <= 0;
             next_state <= state_write_back;
-            finished <= 0;
+        end
+
+        opcode_I: begin    
+            alu_cmd <= 4'b0001;
+            rf_we <= 0;
+            d_mem_we <= 0;  
+            al_src <= 1;
+            pc_src <= 0;
+            next_state <= state_write_back;
+        end
+
+        opcode_S: begin    
+            alu_cmd <= 4'b0010;
+            rf_we <= 0;
+            d_mem_we <= 0;  
+            al_src <= 0;
+            pc_src <= 0;
+            next_state <= state_write_back;
+        end
+
+        opcode_B: begin    
+            alu_cmd <= 4'b0011;
+            rf_we <= 0;
+            d_mem_we <= 0;  
+            al_src <= 0;
+            pc_src <= 1;
+            next_state <= state_write_back;
+        end
+
+        opcode_U: begin    
+            alu_cmd <= 4'b0100;
+            rf_we <= 0;
+            d_mem_we <= 0;  
+            al_src <= 1;
+            pc_src <= 0;
+            next_state <= state_write_back;
+        end
+
+        opcode_J: begin    
+            alu_cmd <= 4'b0101;
+            rf_we <= 0;
+            d_mem_we <= 0;  
+            al_src <= 1;
+            pc_src <= 1;
+            next_state <= state_write_back;
         end
         
         default: begin
             next_state <= state_write_back;
-            finished <= 0; 
         end
                
         endcase
     end
 
     state_write_back: begin 
-        rf_write_en <= 1;
-        dm_write_en <= 1;
+        rf_we <= 1;
+        d_mem_we <= 1;
         next_state <= state_fetch;
-        finished <= 1;
 
     end 
 
     default: begin
         next_state <= state_fetch;
-        finished <= 0;
     end
 
     endcase
-   end
-   
     
-    /* sinais separados por tipos */
-    // always @(posedge clk) begin
-    //     case (opcode)
-    //     opcode_R: begin
-    //         case (state)
-
-    //         state0: begin 
-    //             /* Reading data from register file*/
-    //             // $display("Reading data from register file");
-    //             finished <= 0;
-    //             rf_write_en <= 0;
-    //             next_state <= state1;
-    //             // $display("State: %b", state); 
-    //             // $display("Opcode: %b", opcode);
-
-    //         end
-
-    //         state1: begin
-    //             /* Realizing Alu operation*/
-    //             // $display("Realizing Alu operation");
-    //             rf_write_en <= 0;
-    //             finished <= 0;
-    //             next_state <= state2;
-    //         end
-
-    //         state2: begin
-    //             /* Writing data to register file*/
-    //             // $display("Writing data to register file");
-    //             rf_write_en <= 1;
-    //             next_state <= state0;
-    //         end
-    //         state3: begin
-    //             /* Finishing operation*/
-    //             // $display("Finishing operation");
-    //             finished <= 1;
-    //             rf_write_en <= 0;
-    //             next_state <= state0;  
-    //         end
-
-    //         default: begin
-    //             next_state <= state0;
-    //         end
-    //         endcase
-
-    //     end
-    //     endcase
-    // end
-
+   end
 endmodule

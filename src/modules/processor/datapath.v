@@ -1,23 +1,29 @@
 module datapath #(
     parameter WORDSIZE = 64,           /* tamanho da palavra (64) */
-    parameter INSTRUCTION_SIZE = 32   /* tamanho da instrução (32 para o RISC-V) */
+    parameter INSTRUCTION_SIZE = 32,   /* tamanho da instrução (32 para o RISC-V) */
+    parameter i_addr_bits = 6,
+    parameter d_addr_bits = 6
 )
 (
- input finished,
- input clk,
- input rf_write_en,
- input dm_write_en,
- input wire fetch, 
- input wire decode,
+ input clk, rst_n,
  output[6:0] opcode,
- output[WORDSIZE-1:0] result
+ input d_mem_we, rf_we,
+ input [3:0] alu_cmd,
+ output [3:0] alu_flags,
+ input  alu_src,                     
+        pc_src,                      
+        rf_src,                      
+ output [i_addr_bits-1:0] i_mem_addr,
+ input  [31:0]            i_mem_data,
+ output [d_addr_bits-1:0] d_mem_addr,
+ inout  [63:0]            d_mem_data
 );
 
  reg  [WORDSIZE-1:0] pc_current;
  wire [WORDSIZE-1:0] pc_next;
  wire [INSTRUCTION_SIZE-1:0] instr;
 
- // Register File
+ // register file
  wire [4:0] rf_write_addr;
  wire [WORDSIZE-1:0] rf_write_data;
  wire [4:0] rf_addr_a;
@@ -25,7 +31,7 @@ module datapath #(
  wire [4:0] rf_addr_b;
  wire [WORDSIZE-1:0] rf_data_b;
 
-// Data Memory
+// data memory
  wire [WORDSIZE-1:0] dm_data_output;
  reg [4:0] dm_addr;
 
@@ -37,7 +43,7 @@ module datapath #(
  wire beq_control;
  wire [12:0] jump_shift;
 
- // Flags 
+ // flags 
  wire flag_overflow;          /* sinal de detecção de overflow */
  wire flag_equal;             /* flag igualdade */
  wire flag_not_equal;         /* flag não igualdade */
@@ -85,7 +91,7 @@ module datapath #(
  register_file reg_file
  (
   .clk(clk),
-  .write_en(rf_write_en),
+  .write_en(rf_we),
   .write_addr(rf_write_addr),
   .write_data(rf_write_data),
   .addr_a(rf_addr_a),
@@ -138,8 +144,8 @@ alu alu_unit
 //    (
 //     .clk(clk),
 //     .mem_access_addr(ALU_out),
-//     .dm_write_en_data(rf_data_b),
-//     .dm_write_en_en(dm_write_en),
+//     .d_mem_we_data(rf_data_b),
+//     .d_mem_we_en(d_mem_we),
 //     .mem_read(mem_read),
 //     .mem_read_data(mem_read_data)
 //    );
@@ -148,7 +154,7 @@ alu alu_unit
     .clk(clk),
     .addr(dm_addr),
     .data_input(dm_data_input),
-    .write_en(dm_write_en),
+    .write_en(d_mem_we),
     .data_output(dm_data_output)
 );
 

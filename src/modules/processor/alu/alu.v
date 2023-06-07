@@ -4,6 +4,7 @@ module alu #(
 ) (
     input wire [WORDSIZE-1:0] input_a,  /* primeiro valor da operação */  
     input wire [WORDSIZE-1:0] input_b,  /* segundo valor da operação */
+    input wire [3:0] alu_cmd,
     input wire [2:0] funct3,         /* operação funct3 a ser realizada */
     input wire [6:0] funct7,        /* operação funct7 a ser realizada */
     output wire [WORDSIZE-1:0] result,  /* resultado */
