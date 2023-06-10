@@ -9,13 +9,7 @@ module alu_test #(
     reg [2:0] funct3;
     reg [6:0] funct7;
     wire [WORDSIZE-1:0] result;        
-    wire flag_equal;            
-    wire flag_not_equal;        
-    wire flag_greater;           
-    wire flag_less;              
-    wire flag_u_equal;           
-    wire flag_u_greater;        
-    wire flag_u_less;             
+    wire [3:0] flags;      
 
     /* instanciação da unit under test */
     alu uut(
@@ -24,13 +18,7 @@ module alu_test #(
         .funct3(funct3),
         .funct7(funct7),
         .result(result),
-        .flag_equal(flag_equal),
-        .flag_not_equal(flag_not_equal),
-        .flag_greater(flag_greater),
-        .flag_less(flag_less),
-        .flag_u_equal(flag_u_equal),
-        .flag_u_greater(flag_u_greater),
-        .flag_u_less(flag_u_less)  
+        .flags(flags) 
     );
 
     /* início do testbench */
@@ -46,13 +34,7 @@ module alu_test #(
             "funct3: %H", funct3, "\n",
             "funct7: %H", funct7, "\n",
             "result: %H", result, "\n", 
-            "flag_equal: %H", flag_equal, "\n",
-            "flag_not_equal: %H", flag_not_equal, "\n",
-            "flag_greater: %H", flag_greater, "\n",
-            "flag_less: %H", flag_less, "\n",
-            "flag_u_equal: %H", flag_u_equal, "\n",
-            "flag_u_greater: %H", flag_u_greater, "\n",
-            "flag_u_less: %H", flag_u_less, "\n"
+            "flags: %B", flags, "\n"
         );
         #100;
         // tenta agora ok
@@ -68,13 +50,7 @@ module alu_test #(
             "funct3: %H", funct3, "\n",
             "funct7: %H", funct7, "\n",
             "result: %H", result, "\n", 
-            "flag_equal: %H", flag_equal, "\n",
-            "flag_not_equal: %H", flag_not_equal, "\n",
-            "flag_greater: %H", flag_greater, "\n",
-            "flag_less: %H", flag_less, "\n",
-            "flag_u_equal: %H", flag_u_equal, "\n",
-            "flag_u_greater: %H", flag_u_greater, "\n",
-            "flag_u_less: %H", flag_u_less, "\n"
+            "flags: %B", flags, "\n"
         );
         #100;
 
@@ -89,13 +65,22 @@ module alu_test #(
             "funct3: %H", funct3, "\n",
             "funct7: %H", funct7, "\n",
             "result: %H", result, "\n", 
-            "flag_equal: %H", flag_equal, "\n",
-            "flag_not_equal: %H", flag_not_equal, "\n",
-            "flag_greater: %H", flag_greater, "\n",
-            "flag_less: %H", flag_less, "\n",
-            "flag_u_equal: %H", flag_u_equal, "\n",
-            "flag_u_greater: %H", flag_u_greater, "\n",
-            "flag_u_less: %H", flag_u_less, "\n"
+            "flags: %B", flags, "\n"
+        );
+        #100;
+
+        input_a = 64'hffff_ffff_ffff_ffff;
+        input_b = 64'hffff_ffff_ffff_ffff;
+
+        funct3 = 3'b000;
+        funct7 = 7'b0000000;
+        $monitor( 
+            "input_a: %H", input_a, "\n",
+            "input_b: %H", input_b, "\n",
+            "funct3: %H", funct3, "\n",
+            "funct7: %H", funct7, "\n",
+            "result: %H", result, "\n", 
+            "flags: %B", flags, "\n"
         );
         #100;
     end

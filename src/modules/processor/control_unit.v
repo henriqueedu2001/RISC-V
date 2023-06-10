@@ -1,15 +1,14 @@
 /* unidade de controle */
 module control_unit #(
-    parameter WORDSIZE = 64,           /* define o tamanho da palavra */
-    parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
+    parameter WORDSIZE = 64, /* define o tamanho da palavra */
+    parameter INSTRUCTION_SIZE = 32 /* tamanho da instrução (32 para o RISC-V) */
 ) (
     input wire clk, rst_n,
-    input wire [6:0] opcode,                       /* opcode */
-    output reg d_mem_we,
-    output reg rf_we,
+    input wire [6:0] opcode, /* opcode */
+    output reg d_mem_we,rf_we,
     input [3:0] alu_flags,
-    output [3:0] alu_cmd,
-    output alu_src, pc_src, rf_src
+    output reg [3:0] alu_cmd,
+    output reg alu_src, pc_src, rf_src
 );
     /* opcodes e tipos*/
     localparam 
@@ -28,6 +27,7 @@ module control_unit #(
     reg [2:0] state;
     reg [2:0] next_state;
     
+    /* estados da UC */
     localparam
     state_fetch = 2'b00,
     state_decode = 2'b01,
@@ -35,101 +35,122 @@ module control_unit #(
     state_write_back = 2'b11;
 
 always @(posedge clk, negedge rst_n) begin
+    $display("state: %d", state);
     if (!rst_n) begin
         state <= state_fetch;
     end
     else begin
-        state<= next_state;
+        state <= next_state;
     end
 end
  
    // maquina de estados da UC
    always @(state) begin
     case(state)
-    state_fetch:begin
-        rf_we <= 0;
-        d_mem_we <= 0; 
-        next_state <= state_decode;
-    end
-    
-    state_decode: begin
-        rf_we <= 0;
-        d_mem_we <= 0; 
-        next_state <= state_execute;
-    end
-
-    state_execute: begin 
-        case(opcode) 
-        opcode_R: begin    
-            alu_cmd <= 4'b0000;
+        state_fetch:begin
+            $display("state_fetch");
             rf_we <= 0;
             d_mem_we <= 0; 
-            al_src <= 0; 
-            pc_src <= 0;
-            next_state <= state_write_back;
-        end
-
-        opcode_I: begin    
-            alu_cmd <= 4'b0001;
-            rf_we <= 0;
-            d_mem_we <= 0;  
-            al_src <= 1;
-            pc_src <= 0;
-            next_state <= state_write_back;
-        end
-
-        opcode_S: begin    
-            alu_cmd <= 4'b0010;
-            rf_we <= 0;
-            d_mem_we <= 0;  
-            al_src <= 0;
-            pc_src <= 0;
-            next_state <= state_write_back;
-        end
-
-        opcode_B: begin    
-            alu_cmd <= 4'b0011;
-            rf_we <= 0;
-            d_mem_we <= 0;  
-            al_src <= 0;
-            pc_src <= 1;
-            next_state <= state_write_back;
-        end
-
-        opcode_U: begin    
-            alu_cmd <= 4'b0100;
-            rf_we <= 0;
-            d_mem_we <= 0;  
-            al_src <= 1;
-            pc_src <= 0;
-            next_state <= state_write_back;
-        end
-
-        opcode_J: begin    
-            alu_cmd <= 4'b0101;
-            rf_we <= 0;
-            d_mem_we <= 0;  
-            al_src <= 1;
-            pc_src <= 1;
-            next_state <= state_write_back;
+            next_state <= state_decode;
         end
         
-        default: begin
-            next_state <= state_write_back;
+        state_decode: begin
+            $display("state_decode");
+            rf_we <= 0;
+            d_mem_we <= 0; 
+            next_state <= state_execute;
         end
-               
-        endcase
-    end
 
-    state_write_back: begin 
-        rf_we <= 1;
-        d_mem_we <= 1;
-        next_state <= state_fetch;
+        state_execute: begin 
+            case(opcode) 
+                opcode_R: begin    
+                    $display("opcode_R");
+                    alu_cmd <= 4'b0000;
+                    rf_we <= 0;
+                    d_mem_we <= 0; 
+                    alu_src <= 0; 
+                    pc_src <= 0;
+                    rf_src <= 0;
+                    next_state <= state_write_back;
+                end
 
-    end 
+                opcode_I: begin    
+                    alu_cmd <= 4'b0001;
+                    rf_we <= 0;
+                    d_mem_we <= 0;  
+                    alu_src <= 1;
+                    pc_src <= 0;
+                    rf_src <= 0;
+                    next_state <= state_write_back;
+                end
 
-    default: begin
-        next_state <= state_fetch;
+                opcode_I_Load: begin    
+                    alu_cmd <= 4'bxxxx;
+                    rf_we <= 1;
+                    d_mem_we <= 0;  
+                    alu_src <= x;
+                    pc_src <= x;
+                    rf_src <= 1;
+                    next_state <= state_write_back;
+                end
+
+                opcode_S: begin    
+                    alu_cmd <= 4'b0010;
+                    rf_we <= 0;
+                    d_mem_we <= 0;  
+                    alu_src <= 0;
+                    pc_src <= 0;
+                    rf_src <= 0;
+                    next_state <= state_write_back;
+                end
+
+                opcode_B: begin    
+                    alu_cmd <= 4'b0011;
+                    rf_we <= 0;
+                    d_mem_we <= 0;  
+                    alu_src <= 0;
+                    pc_src <= 1;
+                    rf_src <= 0;
+                    next_state <= state_write_back;
+                end
+
+                opcode_U: begin    
+                    alu_cmd <= 4'b0100;
+                    rf_we <= 0;
+                    d_mem_we <= 0;  
+                    alu_src <= 1;
+                    pc_src <= 0;
+                    rf_src <= 0;
+                    next_state <= state_write_back;
+                end
+
+                opcode_J: begin    
+                    alu_cmd <= 4'b0101;
+                    rf_we <= 0;
+                    d_mem_we <= 0;  
+                    alu_src <= 1;
+                    pc_src <= 1;
+                    rf_src <= 0;
+                    next_state <= state_write_back;
+                end
+                
+                default: begin
+                    next_state <= state_write_back;
+                end
+                    
+                endcase
+        end
+
+        state_write_back: begin 
+            rf_we <= 1;
+            d_mem_we <= 1;
+            next_state <= state_fetch;
+
+        end 
+
+        default: begin
+            $display("default");
+            next_state <= state_fetch;
     end
 
     endcase

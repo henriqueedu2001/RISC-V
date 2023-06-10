@@ -12,7 +12,6 @@ module flagger_test #(
     wire flag_u_equal;         
     wire flag_u_greater;  
     wire flag_u_less;   
-       
 
     flagger utt(
         .input_a(input_a),
@@ -24,7 +23,6 @@ module flagger_test #(
         .flag_u_equal(flag_u_equal),
         .flag_u_greater(flag_u_greater),
         .flag_u_less(flag_u_less)
-        
     );
 
     initial begin 

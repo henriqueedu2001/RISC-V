@@ -8,14 +8,7 @@ module alu #(
     input wire [2:0] funct3,         /* operação funct3 a ser realizada */
     input wire [6:0] funct7,        /* operação funct7 a ser realizada */
     output wire [WORDSIZE-1:0] result,  /* resultado */
-    output wire flag_overflow,          /* sinal de detecção de overflow */
-    output wire flag_equal,             /* flag igualdade */
-    output wire flag_not_equal,         /* flag não igualdade */
-    output wire flag_greater,           /* flag maior */
-    output wire flag_less,              /* flag menor */
-    output wire flag_u_equal,           /* flag igualdade (sem sinal) */
-    output wire flag_u_greater,         /* flag maior (sem sinal) */
-    output wire flag_u_less             /* flag menor (sem sinal) */
+    output wire [3:0] flags             /* vetor com as 4 flags */
 );
 
     wire alu_unit_sel = 2'b00;
@@ -68,7 +61,7 @@ module alu #(
         .input_a(input_a),
         .input_b(input_b),
         .operation({funct3,funct7}),
-        .out(alu_int_ar_out)
+        .out(alu_int_ar_out) // Resultado da operação
     );
 
     // /* instanciação da FLT_AR */
@@ -95,17 +88,13 @@ module alu #(
     //     .out(alu_int_ar_out)
     // );
 
-    /* instanciação da FLAGGER */
-    flagger alu_flagger_unit(
+    /* instanciação da FLAGGER_PADRONIZADO */
+    flagger_padronizado flagger_padronizado_unit(
         .input_a(input_a),
-        .input_b(input_b),
-        .flag_equal(flag_equal),
-        .flag_not_equal(flag_not_equal),
-        .flag_greater(flag_greater),
-        .flag_less(flag_less),
-        .flag_u_equal(flag_u_equal),
-        .flag_u_greater(flag_u_greater),
-        .flag_u_less(flag_u_less)
+        .input_b(input_b), 
+        .result(alu_int_ar_out), 
+        .funct7(funct7), 
+        .flags(flags)
     );
 
     always @(*) begin
@@ -115,6 +104,7 @@ module alu #(
                 $display("input_a: %b", input_a);
                 $display("input_b: %b", input_b);
                 alu_result = alu_int_ar_out;
+                $display("alu_result: %b", alu_int_ar_out);
             end
             2'b01: alu_result = alu_flt_ar_out;
             2'b10: alu_result = alu_bitwise_out;
