@@ -13,8 +13,13 @@ module instruction_memory #(
 
     /* conjunto de instruções iniciais */
     initial begin
-        instructions[0] = 32'b0100000_00010_00001_000_00011_0110011;
-        instructions[1] = 32'b0000000_00010_00001_000_00011_0110011;
+        // Load A e Load B
+        instructions[0] = 32'b0000000_00000_00000_010_00001_0000011;
+        instructions[1] = 32'b0000100_00000_00000_010_00010_0000011;
+
+        // Add e sub
+        instructions[2] = 32'b0100000_00010_00001_000_00011_0110011;
+        instructions[3] = 32'b0000000_00010_00001_000_00011_0110011;
     end
 
     /* selecionar instrução do endereço correto */

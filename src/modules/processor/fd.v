@@ -1,4 +1,4 @@
-module datapath #(
+module fd #(
     parameter WORDSIZE = 64,           /* tamanho da palavra (64) */
     parameter INSTRUCTION_SIZE = 32,   /* tamanho da instrução (32 para o RISC-V) */
     parameter i_addr_bits = 6,
@@ -33,9 +33,7 @@ module datapath #(
 
 // data memory
  wire [WORDSIZE-1:0] dm_data_output;
- reg [4:0] dm_addr;
-
-
+ wire [4:0] dm_addr;
 
  // flags 
  wire flag_overflow;          /* sinal de detecção de overflow */
@@ -47,29 +45,37 @@ module datapath #(
  wire flag_u_greater;         /* flag maior (sem sinal) */
  wire flag_u_less;            /* flag menor (sem sinal) */
  
+ // contador i 
+ reg [2:0] i;
+ 
  // PC 
  initial begin
   pc_current = 64'd0;
-  dm_addr = 64'd0;
+  i = 3'b0;
  end
+
+ assign dm_addr = instr[31:27];
 
 // Atualizando o PC
  always @(posedge clk, negedge rst_n)
  begin
-  $display("PC: %d",pc_current);
+  
+  $display("PC: ------------------------------- %d",pc_current);
   if(!rst_n)
    pc_current <= 64'd0;
   else
   begin
-  //  pc_current <= pc_next;
-  pc_current <= 64'd0;
+    i = i + 1'b1;
+    if(i == 3'b100) begin
+      i = 3'b0;
+      pc_current <= pc_next;
+    end
 
   end
- end
+ end 
    
  // instruction memory
  instruction_memory im(.addr(pc_current),.instruction(instr));
-
 
  // register file
  assign rf_addr_a = instr[19:15];
@@ -78,7 +84,6 @@ module datapath #(
 
  // Multiplexer para o Write Data
  assign rf_write_data = (rf_src ==1'b0) ? alu_result : dm_data_output;
-
  
  // Instanciacao do Register File
  register_file reg_file
@@ -93,7 +98,6 @@ module datapath #(
   .data_b(rf_data_b)
  );
 
-//
 wire [WORDSIZE-1:0] alu_input_b;
 wire [WORDSIZE-1:0] alu_result;
 
@@ -120,7 +124,7 @@ data_memory dm(
 );
 
 // Multiplexer para o pc_next
-assign pc_next = (pc_src==1'b1) ? pc_current + instr[31:25] : pc_current + 64'd4;
+assign pc_next = (pc_src==1'b1) ? pc_current + instr[31:25] : pc_current + 64'd1;
 
  // output to control unit
  assign opcode = instr[6:0];

@@ -101,8 +101,6 @@ module alu #(
         case (alu_unit_sel)
             
             2'b00: begin
-                $display("input_a: %b", input_a);
-                $display("input_b: %b", input_b);
                 alu_result = alu_int_ar_out;
                 $display("alu_result: %b", alu_int_ar_out);
             end

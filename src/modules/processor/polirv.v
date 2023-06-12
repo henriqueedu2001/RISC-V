@@ -1,5 +1,5 @@
 /* descrição */
-module processor #(
+module polirv #(
     parameter i_addr_bits = 6,
     parameter d_addr_bits = 6,
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
@@ -28,7 +28,7 @@ module processor #(
     // );
 
     // Instanciacao Datapath
-    datapath dapath_unit(
+    fd dapath_unit(
         .clk(clk),
         .rst_n(rst_n),
         .opcode(opcode),
@@ -48,7 +48,7 @@ module processor #(
     );
 
     // Instanciacao Control Unit
-    control_unit control_unit_processor(
+    uc control_unit_processor(
         .clk(clk),
         .rst_n(rst_n),
         .opcode(opcode),

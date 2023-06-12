@@ -1,5 +1,5 @@
 /* unidade de controle */
-module control_unit #(
+module uc #(
     parameter WORDSIZE = 64, /* define o tamanho da palavra */
     parameter INSTRUCTION_SIZE = 32 /* tamanho da instrução (32 para o RISC-V) */
 ) (
@@ -35,7 +35,6 @@ module control_unit #(
     state_write_back = 2'b11;
 
 always @(posedge clk, negedge rst_n) begin
-    $display("state: %d", state);
     if (!rst_n) begin
         state <= state_fetch;
     end
@@ -46,8 +45,10 @@ end
  
    // maquina de estados da UC
    always @(state) begin
+    $display("state: %d", state);
+    $display("opcode - %B", opcode); 
     case(state)
-        state_fetch:begin
+        state_fetch: begin
             $display("state_fetch");
             rf_we <= 0;
             d_mem_we <= 0; 
@@ -84,12 +85,13 @@ end
                     next_state <= state_write_back;
                 end
 
-                opcode_I_Load: begin    
+                opcode_I_load: begin
+                    $display("opcode_I_load");    
                     alu_cmd <= 4'bxxxx;
                     rf_we <= 1;
                     d_mem_we <= 0;  
-                    alu_src <= x;
-                    pc_src <= x;
+                    alu_src <= 1'bx;
+                    pc_src <= 1'b0;
                     rf_src <= 1;
                     next_state <= state_write_back;
                 end
@@ -97,7 +99,7 @@ end
                 opcode_S: begin    
                     alu_cmd <= 4'b0010;
                     rf_we <= 0;
-                    d_mem_we <= 0;  
+                    d_mem_we <= 1;  
                     alu_src <= 0;
                     pc_src <= 0;
                     rf_src <= 0;
@@ -142,10 +144,10 @@ end
         end
 
         state_write_back: begin 
+            $display("state write back"); 
             rf_we <= 1;
             d_mem_we <= 1;
             next_state <= state_fetch;
-
         end 
 
         default: begin

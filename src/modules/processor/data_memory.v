@@ -14,8 +14,8 @@ module data_memory #(
     reg [WORDSIZE:0] memory [SIZE-1:0];
     
     initial begin
-        memory[0] = 64'd2;
-        memory[1] = 64'd3;
+        memory[0] = 64'd5;
+        memory[1] = 64'd4;
     end
     /* ativação em borda de subida */
     always @(posedge clk) begin
@@ -26,5 +26,5 @@ module data_memory #(
 
     /* saída de leitura */
     assign data_output = memory[addr];
-
+    
 endmodule

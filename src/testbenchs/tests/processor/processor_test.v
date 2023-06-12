@@ -16,7 +16,7 @@ module processor_test    #(
     wire [d_addr_bits-1:0] d_mem_addr;
     wire [63:0] d_mem_data;
 
-    processor uut
+    polirv uut
  (
     .clk(clk),
     .rst_n(rst_n),
@@ -68,28 +68,23 @@ module processor_test    #(
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 1");
 
     #10
     clk = 0;
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 0");
-
     #10 
     clk = 1;
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 1");
 
      #10
     clk = 0;
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 0");
 
 
     #10 
@@ -97,21 +92,155 @@ module processor_test    #(
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 1");
 
     #10
     clk = 0;
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 0");
 
     #10 
     clk = 1;
     rst_n = 1;
     i_mem_data = 0;
 
-    $display("Clock 1");
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+        #10
+    clk = 0;
+    rst_n = 1;
+    i_mem_data = 0;
+
+
+    #10 
+    clk = 1;
+    rst_n = 1;
+    i_mem_data = 0;
+
 
     end
 endmodule
