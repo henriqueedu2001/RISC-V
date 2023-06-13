@@ -1,10 +1,10 @@
 /* instruction_memory */
 module instruction_memory #(
-    parameter WORDSIZE = 64,           /* tamanho da palavra (64) */
+    parameter i_addr_bits = 6,
     parameter INSTRUCTION_SIZE = 32,   /* tamanho da instrução (32 para o RISC-V) */
     parameter MEMORY_SIZE = 1024       /* tamanho da memória (1024) */
 ) (
-    input wire [WORDSIZE-1:0] addr,                  /* endereço da instrução */
+    input wire [i_addr_bits-1:0] addr,                  /* endereço da instrução */
     output wire [INSTRUCTION_SIZE-1:0] instruction   /* instrução correspondente */
 );
 

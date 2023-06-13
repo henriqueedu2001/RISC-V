@@ -1,17 +1,18 @@
 /* data memory */
 module data_memory #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
-    parameter SIZE = 512               /* tamanho da memória */
+    parameter SIZE = 512,
+    parameter d_addr_bits = 6           /* tamanho da memória */
 ) (
     input clk,                          /* sinal de clock */
-    input [WORDSIZE-1:0] addr,          /* endereço para leitura ou escrita */
+    input [d_addr_bits-1:0] addr,          /* endereço para leitura ou escrita */
     input [WORDSIZE-1:0] data_input,    /* valor de escrita */
     input write_en,                     /* habilita escrita */
     output [WORDSIZE-1:0] data_output   /* valor lido */
 );
 
     /* banco de  */
-    reg [WORDSIZE:0] memory [SIZE-1:0];
+    reg [d_addr_bits:0] memory [SIZE-1:0];
     
     initial begin
         memory[0] = 64'd5;

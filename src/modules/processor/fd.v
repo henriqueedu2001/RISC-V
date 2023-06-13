@@ -23,6 +23,11 @@ module fd #(
  wire [WORDSIZE-1:0] pc_next;
  wire [INSTRUCTION_SIZE-1:0] instr;
 
+assign i_mem_addr = pc_current;
+assign instr = i_mem_data;
+
+
+
  // register file
  wire [4:0] rf_write_addr;
  wire [WORDSIZE-1:0] rf_write_data;
@@ -34,6 +39,9 @@ module fd #(
 // data memory
  wire [WORDSIZE-1:0] dm_data_output;
  wire [4:0] dm_addr;
+
+assign d_mem_addr = dm_addr;
+assign dm_data_output = d_mem_data;
 
  // flags 
  wire flag_overflow;          /* sinal de detecção de overflow */
@@ -74,9 +82,6 @@ module fd #(
   end
  end 
    
- // Instruction memory
- instruction_memory im(.addr(pc_current),.instruction(instr));
-
  // Register file
  assign rf_addr_a = instr[19:15];
  assign rf_addr_b = instr[24:20];
@@ -125,13 +130,7 @@ alu alu_unit
   .flags(alu_flags)
 );
 
-data_memory dm(
-  .clk(clk),
-  .addr(dm_addr),
-  .data_input(dm_data_input),
-  .write_en(d_mem_we),
-  .data_output(dm_data_output)
-);
+
 
 // Multiplexador para o pc_next
 assign pc_next = (pc_src == 1'b1 && alu_flags[0] == 1'b1) ? pc_current + {instr[31:25], instr[11:7]} : pc_current + 64'd1;
