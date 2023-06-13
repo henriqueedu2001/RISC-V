@@ -19,7 +19,11 @@ module instruction_memory #(
 
         // Add e sub
         instructions[2] = 32'b0100000_00010_00001_000_00011_0110011;
-        instructions[3] = 32'b0000000_00010_00001_000_00011_0110011;
+        // instructions[3] = 32'b0000000_00010_00001_000_00011_0110011;
+
+        // BEQ
+        instructions[3] = 32'b0000000_00010_00001_000_00110_1100011;
+        
     end
 
     /* selecionar instrução do endereço correto */

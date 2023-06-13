@@ -15,7 +15,7 @@ module data_memory #(
     
     initial begin
         memory[0] = 64'd5;
-        memory[1] = 64'd4;
+        memory[1] = 64'd5;
     end
     /* ativação em borda de subida */
     always @(posedge clk) begin

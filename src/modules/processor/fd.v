@@ -74,10 +74,10 @@ module fd #(
   end
  end 
    
- // instruction memory
+ // Instruction memory
  instruction_memory im(.addr(pc_current),.instruction(instr));
 
- // register file
+ // Register file
  assign rf_addr_a = instr[19:15];
  assign rf_addr_b = instr[24:20];
  assign rf_write_addr = instr[11:7];
@@ -101,16 +101,26 @@ module fd #(
 wire [WORDSIZE-1:0] alu_input_b;
 wire [WORDSIZE-1:0] alu_result;
 
-// Multiplexer para o alu_input_b
+// Multiplexador para o alu_input_b
 assign alu_input_b = (alu_src==1'b1) ? instr[31:20] : rf_data_b;
+
+ assign opcode = instr[6:0];
+
+wire [2:0] funct3;
+assign funct3 = instr[14:12];
+
+wire [6:0] funct7;
+
+// Se for BEQ, realizar subtração
+assign funct7 = (opcode == 7'b1100011) ? 7'b0100000 : instr[31:25];
 
 // Instanciacao da ALU
 alu alu_unit 
 (
   .input_a(rf_data_a), 
   .input_b(alu_input_b),
-  .funct3(instr[14:12]),
-  .funct7(instr[31:25]),
+  .funct3(funct3),
+  .funct7(funct7),
   .result(alu_result),
   .flags(alu_flags)
 );
@@ -123,9 +133,7 @@ data_memory dm(
   .data_output(dm_data_output)
 );
 
-// Multiplexer para o pc_next
-assign pc_next = (pc_src==1'b1) ? pc_current + instr[31:25] : pc_current + 64'd1;
+// Multiplexador para o pc_next
+assign pc_next = (pc_src == 1'b1 && alu_flags[0] == 1'b1) ? pc_current + {instr[31:25], instr[11:7]} : pc_current + 64'd1;
 
- // output to control unit
- assign opcode = instr[6:0];
 endmodule

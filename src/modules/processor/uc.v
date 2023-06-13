@@ -6,9 +6,9 @@ module uc #(
     input wire clk, rst_n,
     input wire [6:0] opcode, /* opcode */
     output reg d_mem_we,rf_we,
-    input [3:0] alu_flags,
+    input [3:0] alu_flags, /* flags */
     output reg [3:0] alu_cmd,
-    output reg alu_src, pc_src, rf_src
+    output reg alu_src, pc_src, rf_src 
 );
     /* opcodes e tipos*/
     localparam 
