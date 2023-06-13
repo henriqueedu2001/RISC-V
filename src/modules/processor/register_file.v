@@ -20,8 +20,9 @@ module register_file #(
     wire [SIZE-1:0] [WORDSIZE-1:0] registers_data_out;
 
     /* gera um banco de 32 registradores de 64 bits */
+    genvar i;
     generate
-        for (genvar i = 0; i < SIZE; i = i + 1) begin: REG_INST
+        for (i = 0; i < SIZE; i = i + 1) begin: REG_INST
             n_bits_register n_bits_reg (
                 .clk(clk),
                 .load(registers_load[i]),
@@ -34,7 +35,7 @@ module register_file #(
 
     /* coloca o sinal de load nos registradores corretos */
     generate
-        for (genvar i = 0; i < SIZE; i = i + 1) begin
+        for (i = 0; i < SIZE; i = i + 1) begin
             assign registers_load[i] = (write_en) & (write_addr == i);
         end
     endgenerate

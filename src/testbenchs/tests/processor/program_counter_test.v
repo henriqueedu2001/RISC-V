@@ -6,6 +6,7 @@ module program_counter_test #(
 ) ();
 
     reg clk;
+    reg [WORDSIZE-1:0] increment;
     reg reset;
     wire [WORDSIZE-1:0] addr;
 
@@ -13,6 +14,7 @@ module program_counter_test #(
     program_counter uut(
         .clk(clk),
         .reset(reset),
+        .increment(increment),
         .addr(addr)
     );
 
@@ -22,31 +24,31 @@ module program_counter_test #(
         #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 1; #100; clk = 1; reset = 1; #100;
+        increment = 1; clk = 0; reset = 1; #100; clk = 1; reset = 1; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("addr = %H", addr);
-        clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
+        increment = 1; clk = 0; reset = 0; #100; clk = 1; reset = 0; #100;
 
         $monitor("--PROGRAM COUNTER TEST END--\n");
         #100;

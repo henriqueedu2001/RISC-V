@@ -6,42 +6,81 @@ module alu_test #(
 ) ();
     reg [WORDSIZE-1:0] input_a;
     reg [WORDSIZE-1:0] input_b;
-    reg [2:0] operation;
-    wire [WORDSIZE-1:0] result;
-    wire overflow;
+    reg [2:0] funct3;
+    reg [6:0] funct7;
+    wire [WORDSIZE-1:0] result;        
+    wire [3:0] flags;      
 
     /* instanciação da unit under test */
     alu uut(
         .input_a(input_a),
         .input_b(input_b),
-        .operation(operation),
+        .funct3(funct3),
+        .funct7(funct7),
         .result(result),
-        .overflow(overflow)
+        .flags(flags) 
     );
 
     /* início do testbench */
     initial begin
         input_a = 64'h0000_0000_0000_0005;
         input_b = 64'h0000_0000_0000_0002;
-        operation = 3'b000;
-        $monitor("input_a = %H\ninput_b = %H\noperation = %B\nresult = %H\noverflow = %B\n", 
-            input_a,
-            input_b,
-            operation,
-            result,
-            overflow
+        funct3 = 3'b000;
+        funct7 = 7'b0000000;
+
+        $monitor( 
+            "input_a: %H", input_a, "\n",
+            "input_b: %H", input_b, "\n",
+            "funct3: %H", funct3, "\n",
+            "funct7: %H", funct7, "\n",
+            "result: %H", result, "\n", 
+            "flags: %B", flags, "\n"
+        );
+        #100;
+        // tenta agora ok
+
+        input_a = 64'h0000_0000_0000_0007;
+        input_b = 64'h0000_0000_0000_0007;
+
+        funct3 = 3'b000;
+        funct7 = 7'b0100000;
+        $monitor( 
+            "input_a: %H", input_a, "\n",
+            "input_b: %H", input_b, "\n",
+            "funct3: %H", funct3, "\n",
+            "funct7: %H", funct7, "\n",
+            "result: %H", result, "\n", 
+            "flags: %B", flags, "\n"
         );
         #100;
 
-        input_a = 64'h0000_0000_0000_0005;
-        input_b = 64'h0000_0000_0000_0002;
-        operation = 3'b001;
-        $monitor("input_a = %H\ninput_b = %H\noperation = %B\nresult = %H\noverflow = %B\n", 
-            input_a,
-            input_b,
-            operation,
-            result,
-            overflow
+        input_a = 64'h0000_0000_0000_0001;
+        input_b = 64'h0000_0000_0000_0007;
+
+        funct3 = 3'b000;
+        funct7 = 7'b0000000;
+        $monitor( 
+            "input_a: %H", input_a, "\n",
+            "input_b: %H", input_b, "\n",
+            "funct3: %H", funct3, "\n",
+            "funct7: %H", funct7, "\n",
+            "result: %H", result, "\n", 
+            "flags: %B", flags, "\n"
+        );
+        #100;
+
+        input_a = 64'hffff_ffff_ffff_ffff;
+        input_b = 64'hffff_ffff_ffff_ffff;
+
+        funct3 = 3'b000;
+        funct7 = 7'b0000000;
+        $monitor( 
+            "input_a: %H", input_a, "\n",
+            "input_b: %H", input_b, "\n",
+            "funct3: %H", funct3, "\n",
+            "funct7: %H", funct7, "\n",
+            "result: %H", result, "\n", 
+            "flags: %B", flags, "\n"
         );
         #100;
     end

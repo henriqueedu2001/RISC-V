@@ -1,6 +1,6 @@
 `timescale 1ps/1ps
 
-/* teste do módulo [...] */
+/* teste da unidade de controle [...] */
 module control_unit_test #(
     parameter WORDSIZE = 64,           /* define o tamanho da palavra */
     parameter INSTRUCTION_SIZE = 32    /* tamanho da instrução (32 para o RISC-V) */
@@ -65,6 +65,60 @@ module control_unit_test #(
         },
         /* sub */
         instruction_04 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* addi */
+        instruction_05 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* subi */
+        instruction_06 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* beq */
+        instruction_07 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* bne */
+        instruction_08 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* bgr */
+        instruction_09 = {
+            7'b0100000,          /* funct7 */
+            5'b11111,            /* rs2 */
+            5'b11001,            /* rs1 */
+            3'b000,              /* funct3 */
+            5'b00110,            /* rd */
+            7'b0110011           /* opcode */
+        },
+        /* blt */
+        instruction_10 = {
             7'b0100000,          /* funct7 */
             5'b11111,            /* rs2 */
             5'b11001,            /* rs1 */

@@ -3,15 +3,13 @@ module program_counter #(
     parameter WORDSIZE = 64           /* define o tamanho da palavra */
 ) (
     input wire clk,                   /* sinal de clock */
-    input reset,
-    output wire [WORDSIZE-1:0] addr  /* endereço da instrução atual */
+    input reset,                      /* sinal de reset */
+    input [WORDSIZE-1:0] increment,   /* valor do incremento */
+    output wire [WORDSIZE-1:0] addr   /* endereço da instrução atual */
 );
 
     reg [WORDSIZE-1:0] current_addr; /* registrador para guardar endereço atual */
     reg [WORDSIZE-1:0] temp;         /* registrador temporário, para executar soma */
-
-    /* valor do incremento (increment = 32) */
-    reg [WORDSIZE-1:0] increment = 64'h0000_0000_0000_0020;
 
     /* inicializar registradores em zero */
     initial begin

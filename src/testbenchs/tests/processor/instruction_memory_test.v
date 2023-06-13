@@ -21,15 +21,15 @@ module instruction_memory_test #(
         #100;
 
         addr = 0;
-        $monitor("addr = %H; instruction = %H", addr, instruction);
+        $monitor("addr = %H; instruction = %B", addr, instruction);
         #100;
 
         addr = 1;
-        $monitor("addr = %H; instruction = %H", addr, instruction);
+        $monitor("addr = %H; instruction = %B", addr, instruction);
         #100;
 
         addr = 2;
-        $monitor("addr = %H; instruction = %H", addr, instruction);
+        $monitor("addr = %H; instruction = %B", addr, instruction);
         #100;
 
         $monitor("--INSTRUCTION MEMORY TEST END--");
